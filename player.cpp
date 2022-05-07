@@ -267,7 +267,7 @@ bool Player::valid_move() const {
 }
 
 void Player::pop() {
-
+    //remove last history board
 }
 
 bool Player::wins(int player_nr) const {
