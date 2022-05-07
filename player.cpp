@@ -195,22 +195,33 @@ void Player::init_board(const string &filename) const {
 } // funzionante NO APPEND a History
 
 void Player::store_board(const string &filename, int history_offset) const {
-    ifstream myfile(filename);
-    Player::piece board[8][8];
-
-
+    ofstream myfile(filename);
+    int count =0;
     if(!myfile){
-        throw player_exception{player_exception::missing_file, "file does not exist"};
-    }else if(...)
-    for(char a:filename){
-        if(myfile.eof()){
-            throw player_exception{player_exception::invalid_board, "reached end of file"};
-
+        throw player_exception{player_exception::missing_file, "file no found"};
+    }else{
+        while(pimpl->tail->prev!=nullptr){
+            pimpl->tail=pimpl->tail->prev;
+            count++;
+        }
+        if(count!=history_offset){
+            throw player_exception{player_exception::index_out_of_bounds, "history shorter than offset requested"};
         }else{
-
+            int boardsize = sizeof(pimpl->tail->board)/ sizeof(*pimpl->tail->board);
+            int rowsize=sizeof(pimpl->tail->board[0])/sizeof(*pimpl->tail->board[0]);
+            for(int i = boardsize-1; i >= 0; i --){
+                for (int k = 0; k < rowsize; k++){
+                    if(k!=7){
+                        myfile<<enum_to_char(pimpl->tail->board[i][k])<<' ';
+                    }else{
+                        myfile<<enum_to_char(pimpl->tail->board[i][k]);
+                    }
+                }
+                if(i!=0){
+                    myfile<<endl;}
+            }
         }
     }
-    this->pimpl->append(board);
 }
 
 void Player::load_board(const string &filename) {
