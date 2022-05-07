@@ -1,0 +1,3 @@
+/Users/alessandrocampagnaro/Desktop/pelproject/cmake-build-debug/CMakeFiles/pelproject.dir
+/Users/alessandrocampagnaro/Desktop/pelproject/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/alessandrocampagnaro/Desktop/pelproject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
