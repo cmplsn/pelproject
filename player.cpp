@@ -201,7 +201,7 @@ void Player::store_board(const string &filename, int history_offset) const {
 
     if(!myfile){
         throw player_exception{player_exception::missing_file, "file does not exist"};
-    }else if()
+    }else if(...)
     for(char a:filename){
         if(myfile.eof()){
             throw player_exception{player_exception::invalid_board, "reached end of file"};
