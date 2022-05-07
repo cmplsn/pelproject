@@ -222,7 +222,7 @@ void Player::store_board(const string &filename, int history_offset) const {
             }
         }
     }
-}
+} //da history a file.txt
 
 void Player::load_board(const string &filename) {
     string name = filename;
@@ -255,7 +255,8 @@ void Player::load_board(const string &filename) {
     }
     this->pimpl->append(board);
 
-}//todo: check valid board (pedine number, pedine location ecc)
+}//da file.txt a history
+//todo: check valid board (pedine number, pedine location ecc)
 
 void Player::move(){
 
