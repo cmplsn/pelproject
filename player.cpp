@@ -7,7 +7,8 @@ struct Cell{
     Player::piece board[8][8];
     Cell* next;
     Cell* prev;
-}; //struct per History in IMPL
+    void append(Player::piece x[8][8]);
+}; //struct per History/tail in IMPL
 
 typedef Cell* List;
 
@@ -21,13 +22,33 @@ struct Player::Impl{
 
 };
 
+void Cell::append(Player::piece x[8][8]) {
+  //todo: posso fare una funzione direttamente dalla struct Cell??
+}
+
 List Player::Impl::copy(List &dest, List source) {
+    if(source == nullptr){
+        return nullptr;//fin qua ok
+    }else{
+        dest = new Cell;
+        if(source->prev == nullptr){
+            dest->prev =nullptr;
+        }else{
+            dest->prev =dest->next->prev;
+        }
+        dest->append(source->board);
+
+        //append della board;
+        copy(dest->next, source->next);
+    }
+    return dest;
 
 }//add to copy constructor
 
 void Player::Impl::destroy(List x)  {
 
 } // Function to destroy History. add to Class Destructor
+
 
 void Player::Impl::append(Player::piece y[8][8]) {
     if(history == nullptr){
@@ -60,18 +81,19 @@ Player::~Player() {
 } //todo: delete per History e poi delete pimpl
 
 Player::Player(const Player& x) {
-    /*this-> pimpl =new Impl;
+    this-> pimpl =new Impl;
     this->pimpl->player_nr = x.pimpl->player_nr;
-    while(x.pimpl->history->next){
-        this->pimpl->append(x.pimpl->history->board);
-        x.pimpl->history =x.pimpl->history->next;
+    if(x.pimpl->history== nullptr){
+        this->pimpl->history = nullptr;
+    }else{
+        this->pimpl->history = new Cell;
+        this->pimpl->history->prev = nullptr;
+        //todo:this->pimpl->history->next = copia del next
+        //todo:this->pimpl->history->board = copia enum per enum della board
+        //todo:copia della tail
     }
 
-    if(!x.pimpl->Board->board->empty()){
-        for(int i = 0; i < sizeof(x.pimpl->history)/sizeof(*x.pimpl->history); i++){
-            this->pimpl->history[i] = x.pimpl->history[i];
-        }
-    }*/
+
 } //todo::COPY CONSTRUCTOR
 
 Player::Player(int player_nr) {
@@ -253,7 +275,7 @@ void Player::load_board(const string &filename) {
             throw player_exception{player_exception::invalid_board, "copy incomplete, did not reach end of file"};
         }
     }
-    this->pimpl->append(board);
+    this->pimpl->history->append(board);
 
 }//da file.txt a history
 //todo: check valid board (pedine number, pedine location ecc)
