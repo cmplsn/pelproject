@@ -106,7 +106,7 @@ Player::Player(int player_nr) {
 
 Player::piece Player::operator()(int r, int c, int history_offset) const {
 
-}*/
+} /**/
 
 
 
