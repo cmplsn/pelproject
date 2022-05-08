@@ -7,7 +7,6 @@ struct Cell{
     Player::piece board[8][8];
     Cell* next;
     Cell* prev;
-    void append(Player::piece x[8][8]);
 }; //struct per History/tail in IMPL
 
 typedef Cell* List;
@@ -22,24 +21,15 @@ struct Player::Impl{
 
 };
 
-void Cell::append(Player::piece x[8][8]) {
-  //todo: posso fare una funzione direttamente dalla struct Cell??
-}
-
 List Player::Impl::copy(List &dest, List source) {
     if(source == nullptr){
         return nullptr;//fin qua ok
     }else{
-        dest = new Cell;
-        if(source->prev == nullptr){
-            dest->prev =nullptr;
-        }else{
-            dest->prev =dest->next->prev;
+        while(source){
+            this->append(source->board);
+            source =source->next;
         }
-        dest->append(source->board);
-
         //append della board;
-        copy(dest->next, source->next);
     }
     return dest;
 
@@ -86,8 +76,7 @@ Player::Player(const Player& x) {
     if(x.pimpl->history== nullptr){
         this->pimpl->history = nullptr;
     }else{
-        this->pimpl->history = new Cell;
-        this->pimpl->history->prev = nullptr;
+        this->pimpl->copy(this->pimpl->history, x.pimpl->history);
         //todo:this->pimpl->history->next = copia del next
         //todo:this->pimpl->history->board = copia enum per enum della board
         //todo:copia della tail
@@ -245,6 +234,7 @@ void Player::store_board(const string &filename, int history_offset) const {
         }
     }
 } //da history a file.txt
+//todo:controllare tutti casi errore eof,good ecc
 
 void Player::load_board(const string &filename) {
     string name = filename;
@@ -275,10 +265,11 @@ void Player::load_board(const string &filename) {
             throw player_exception{player_exception::invalid_board, "copy incomplete, did not reach end of file"};
         }
     }
-    this->pimpl->history->append(board);
+    this->pimpl->append(board);
 
 }//da file.txt a history
 //todo: check valid board (pedine number, pedine location ecc)
+//todo: controllare tutti casi errore file.eof file.good ecc
 
 void Player::move(){
 
