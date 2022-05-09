@@ -36,6 +36,11 @@ List Player::Impl::copy(List &dest, List source) {
 }//add to copy constructor
 
 void Player::Impl::destroy(List x)  {
+    if (x){
+        destroy(x->next);
+        delete x;
+
+    }
 
 } // Function to destroy History. add to Class Destructor
 
@@ -67,6 +72,9 @@ void Player::Impl::append(Player::piece y[8][8]) {
 } //FUNZIONA
 
 Player::~Player() {
+    cout<<"chiamato distruttore"<<endl;
+    this->pimpl->destroy(this->pimpl->history);
+    delete this->pimpl;
     //delete this->pimpl->history;
 } //todo: delete per History e poi delete pimpl
 
@@ -209,6 +217,7 @@ void Player::init_board(const string &filename) const {
             myfile<<endl;}
     }
 } // funzionante NO APPEND a History
+//todo: inserire stringhe direttamente in txt o fare passaggio array -> txt??
 
 void Player::store_board(const string &filename, int history_offset) const {
     ofstream myfile(filename);
