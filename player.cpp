@@ -16,7 +16,7 @@ struct Player::Impl{
     List history;
     List tail;
     void append(Player::piece y[8][8]);
-    void destroy (List x) ;
+    void destroy (List& x) ;
     List copy(List& dest, List source);
 
 };
@@ -35,7 +35,7 @@ List Player::Impl::copy(List &dest, List source) {
 
 }//add to copy constructor
 
-void Player::Impl::destroy(List x)  {
+void Player::Impl::destroy(List& x)  {
     if (x){
         destroy(x->next);
         delete x;
@@ -75,7 +75,6 @@ Player::~Player() {
     cout<<"chiamato distruttore"<<endl;
     this->pimpl->destroy(this->pimpl->history);
     delete this->pimpl;
-    //delete this->pimpl->history;
 } //todo: delete per History e poi delete pimpl
 
 Player::Player(const Player& x) {
