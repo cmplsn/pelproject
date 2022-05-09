@@ -77,9 +77,6 @@ Player::Player(const Player& x) {
         this->pimpl->history = nullptr;
     }else{
         this->pimpl->copy(this->pimpl->history, x.pimpl->history);
-        //todo:this->pimpl->history->next = copia del next
-        //todo:this->pimpl->history->board = copia enum per enum della board
-        //todo:copia della tail
     }
 
 
@@ -100,7 +97,15 @@ Player::Player(int player_nr) {
     }
 }
 
-/*Player& Player::operator=(const Player &) {
+Player& Player::operator=(const Player &x) {
+    if(this->pimpl != x.pimpl){
+        //todo: delete del player che devo riassegnare
+        this->pimpl = new Impl;
+        this->pimpl->player_nr = x.pimpl->player_nr;
+        this->pimpl->copy(this->pimpl->history,x.pimpl->history);
+    }
+
+return *this;
 
 }
 
