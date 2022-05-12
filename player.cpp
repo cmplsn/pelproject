@@ -116,7 +116,7 @@ return *this;
 
 }
 
-Player::piece Player::operator()(int r, int c, int history_offset) const {
+/*Player::piece Player::operator()(int r, int c, int history_offset) const {
 
 } /**/
 
@@ -284,7 +284,7 @@ void Player::load_board(const string &filename) {
 //todo: check valid board (pedine number, pedine location ecc)
 //todo: controllare tutti casi errore file.eof file.good ecc
 
-void Player::move(){
+/*void Player::move(){
 
 }
 
@@ -314,4 +314,4 @@ bool Player::loses() const {
 
 int Player::recurrence() const {
 
-}
+}*/
