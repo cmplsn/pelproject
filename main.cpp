@@ -5,10 +5,9 @@ int main() {
 
     Player a (1);
     Player b(2);
-    b = a;
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    cout<<a.recurrence()<<endl;
+  cout<<a(0,0,1)<<endl;
     return 0;
 }

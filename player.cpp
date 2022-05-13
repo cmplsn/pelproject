@@ -115,13 +115,6 @@ Player& Player::operator=(const Player &x) {
 return *this;
 
 }
-
-/*Player::piece Player::operator()(int r, int c, int history_offset) const {
-
-} /**/
-
-
-
 char enum_to_char(Player::piece a){
     switch (a) {
         default:
@@ -154,6 +147,25 @@ Player::piece char_to_enum(char x){
             return Player::piece::O;
         case ' ':
             return Player::piece::e;
+    }
+
+}
+
+Player::piece Player::operator()(int r, int c, int history_offset) const {
+    int cont = history_offset;
+    while(this->pimpl->tail->prev){
+        pimpl->tail =pimpl->tail->prev;
+        cont--;
+    }
+    if(cont != 0){
+        throw player_exception{player_exception::index_out_of_bounds, "history shorter then requested offset"};
+    }else{
+        if(r<0 ||r >7 || c <0 ||c>7){
+            throw player_exception{player_exception::index_out_of_bounds, "requested cell doesn't exist"};
+        }else{
+           char x = enum_to_char(this->pimpl->tail->board[r][c]);
+           return char_to_enum(x);
+        }
     }
 
 }
