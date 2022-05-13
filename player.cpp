@@ -317,10 +317,19 @@ int Player::recurrence() const {
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "history is empty"};
     }else{
-        int count = 0;
+        int count = 1 ;
+        int correct_char=0;
         while(this->pimpl->tail->prev !=nullptr){
-            if(this->pimpl->tail->prev->board == this->pimpl->tail->board){
-                count ++;
+            for(int i = 0; i < 8; i ++){
+                for (int k = 0; k < 8; k++){
+
+                    if(this->pimpl->tail->board[i][k]== this->pimpl->tail->prev->board[i][k]){
+                        correct_char++;
+                    }
+                }
+            }
+            if(correct_char==64){
+                count++;
             }
             this->pimpl->tail=this->pimpl->tail->prev;
         }
