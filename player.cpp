@@ -75,7 +75,7 @@ Player::~Player() {
     cout<<"chiamato distruttore"<<endl;
     this->pimpl->destroy(this->pimpl->history);
     delete this->pimpl;
-} //todo: delete per History e poi delete pimpl
+}
 
 Player::Player(const Player& x) {
     this-> pimpl =new Impl;
@@ -87,7 +87,7 @@ Player::Player(const Player& x) {
     }
 
 
-} //todo::COPY CONSTRUCTOR
+}
 
 Player::Player(int player_nr) {
     switch(player_nr){
