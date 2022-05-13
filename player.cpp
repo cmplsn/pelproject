@@ -310,8 +310,21 @@ bool Player::loses(int player_nr) const {
 
 bool Player::loses() const {
 
-}
+}*/
 
 int Player::recurrence() const {
 
-}*/
+    if(this->pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "history is empty"};
+    }else{
+        int count = 0;
+        while(this->pimpl->tail->prev !=nullptr){
+            if(this->pimpl->tail->prev->board == this->pimpl->tail->board){
+                count ++;
+            }
+            this->pimpl->tail=this->pimpl->tail->prev;
+        }
+        return count;
+    }
+
+}

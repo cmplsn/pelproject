@@ -7,5 +7,7 @@ int main() {
     Player b(2);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
+    a.load_board("../boards/es.txt");
+    cout<<a.recurrence()<<endl;
     return 0;
 }
