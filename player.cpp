@@ -312,6 +312,7 @@ void Player::pop() {
         List pc = this->pimpl->tail;
         if(this->pimpl->tail->prev ==nullptr){
             this->pimpl->tail =nullptr;
+            this->pimpl->history =this->pimpl->tail;
         }else{
             this->pimpl->tail = pimpl->tail->prev;
         }

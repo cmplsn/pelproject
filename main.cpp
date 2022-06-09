@@ -7,6 +7,8 @@ int main() {
     Player b(2);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
+    a.load_board("../boards/es.txt");
+    a.pop();
 
     return 0;
 }
