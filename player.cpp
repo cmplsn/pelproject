@@ -115,6 +115,7 @@ Player& Player::operator=(const Player &x) {
 return *this;
 
 }
+
 char enum_to_char(Player::piece a){
     switch (a) {
         default:
@@ -163,8 +164,8 @@ Player::piece Player::operator()(int r, int c, int history_offset) const {
         if(r<0 ||r >7 || c <0 ||c>7){
             throw player_exception{player_exception::index_out_of_bounds, "requested cell doesn't exist"};
         }else{
-            char x = this->pimpl->tail->board[r][c];
-            return char_to_enum(x);
+            Player::piece x = this->pimpl->tail->board[r][c];
+            return x;
         }
     }
 
@@ -302,13 +303,25 @@ void Player::load_board(const string &filename) {
 
 bool Player::valid_move() const {
 
-}
+}*/
 
 void Player::pop() {
-    //remove last history board
+    if(this->pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "can't pop from empty history"};
+    }else{
+        List pc = this->pimpl->tail;
+        if(this->pimpl->tail->prev ==nullptr){
+            this->pimpl->tail =nullptr;
+        }else{
+            this->pimpl->tail = pimpl->tail->prev;
+        }
+        delete pc;
+
+    }
+
 }
 
-bool Player::wins(int player_nr) const {
+/*bool Player::wins(int player_nr) const {
 
 }
 
