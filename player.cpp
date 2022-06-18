@@ -309,14 +309,18 @@ void Player::pop() {
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "can't pop from empty history"};
     }else{
-        List pc = this->pimpl->tail;
-        if(this->pimpl->tail->prev ==nullptr){
+        List pc = pimpl->tail;
+        pimpl->tail = pimpl->tail->prev;
+        delete pc;
+
+
+        /*if(this->pimpl->tail->prev ==nullptr){
             this->pimpl->tail =nullptr;
             this->pimpl->history =this->pimpl->tail;
         }else{
             this->pimpl->tail = pimpl->tail->prev;
         }
-        delete pc;
+        delete pc;*/
 
     }
 
