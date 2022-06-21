@@ -60,13 +60,13 @@ void Player::Impl::append(Player::piece y[8][8]) {
         tail->next = new Cell;
         tail->next->prev = tail;
         tail->next->next =nullptr;
-
+        tail = tail->next;
         for(int i = 0;i<8;i++){
             for(int k= 0; k < 8; k++) {
-                tail->next->board[i][k] = y[i][k];
+                tail->board[i][k] = y[i][k];
             }
         }
-        tail = tail->next;
+
     }
 
 } //FUNZIONA

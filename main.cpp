@@ -8,7 +8,7 @@ int main() {
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    a.pop();
+   a.pop();
 
     return 0;
 }
