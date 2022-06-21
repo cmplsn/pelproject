@@ -72,7 +72,6 @@ void Player::Impl::append(Player::piece y[8][8]) {
 } //FUNZIONA
 
 Player::~Player() {
-    cout<<"chiamato distruttore"<<endl;
     this->pimpl->destroy(this->pimpl->history);
     delete this->pimpl;
 }
@@ -106,7 +105,7 @@ Player::Player(int player_nr) {
 
 Player& Player::operator=(const Player &x) {
     if(this->pimpl != x.pimpl){
-        //todo: delete del player che devo riassegnare
+
         this->pimpl = new Impl;
         this->pimpl->player_nr = x.pimpl->player_nr;
         this->pimpl->copy(this->pimpl->history,x.pimpl->history);
@@ -114,7 +113,7 @@ Player& Player::operator=(const Player &x) {
 
 return *this;
 
-}
+}//todo: delete del player che devo riassegnare
 
 char enum_to_char(Player::piece a){
     switch (a) {
@@ -169,7 +168,7 @@ Player::piece Player::operator()(int r, int c, int history_offset) const {
         }
     }
 
-}
+}//todo:come tornare precisamente il char?
 
 void Player::init_board(const string &filename) const {
     ofstream myfile(filename);
@@ -366,4 +365,5 @@ int Player::recurrence() const {
         return count;
     }
 
-}
+} //FATTO
+
