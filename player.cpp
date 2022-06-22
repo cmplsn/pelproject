@@ -72,6 +72,7 @@ void Player::Impl::append(Player::piece y[8][8]) {
 } //FUNZIONA
 
 Player::~Player() {
+    cout<<"chiamo distruttore"<<endl;
     this->pimpl->destroy(this->pimpl->history);
     delete this->pimpl;
 }
@@ -105,10 +106,11 @@ Player::Player(int player_nr) {
 
 Player& Player::operator=(const Player &x) {
     if(this != &x){
-        if(pimpl->history != nullptr){
+        if(this->pimpl!= nullptr) {
             pimpl->destroy(pimpl->history);
+            pimpl->history = nullptr;
+            pimpl->tail = nullptr;
         }
-        this->pimpl = new Impl;
         this->pimpl->player_nr = x.pimpl->player_nr;
         this->pimpl->copy(this->pimpl->history,x.pimpl->history);
     }
