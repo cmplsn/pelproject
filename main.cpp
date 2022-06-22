@@ -1,6 +1,24 @@
 #include <iostream>
 #include "player.hpp"
 
+char enum_to_char2(Player::piece a){
+    switch (a) {
+        default:
+            throw "no matching piece";
+        case Player::piece::x:
+            return 'x';
+        case Player::piece::X:
+            return 'X';
+        case Player::piece::o:
+            return 'o';
+        case Player::piece::O:
+            return 'O';
+        case Player::piece::e:
+            return ' ';
+    }
+
+};
+
 int main() {
 
     Player a (1);
@@ -8,8 +26,5 @@ int main() {
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     Player b(a);
-    a.pop();
-    a.pop();
-    cout<<a.recurrence();
     return 0;
 }

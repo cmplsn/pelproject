@@ -133,7 +133,7 @@ char enum_to_char(Player::piece a){
             return ' ';
     }
 
-};
+}
 
 Player::piece char_to_enum(char x){
     switch (x) {
