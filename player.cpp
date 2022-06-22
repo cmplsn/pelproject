@@ -41,7 +41,6 @@ void Player::Impl::destroy(List& x)  {
         delete x;
 
     }
-
 } // Function to destroy History. add to Class Destructor
 
 
@@ -312,18 +311,16 @@ void Player::pop() {
         throw player_exception{player_exception::index_out_of_bounds, "can't pop from empty history"};
     }else{
         List pc = pimpl->tail;
-        pimpl->tail = pimpl->tail->prev;
-        pimpl->tail->next =nullptr;
-        delete pc;
 
 
-        /*if(this->pimpl->tail->prev ==nullptr){
+        if(this->pimpl->tail->prev ==nullptr){
             this->pimpl->tail =nullptr;
-            this->pimpl->history =this->pimpl->tail;
+            this->pimpl->history = nullptr;
         }else{
             this->pimpl->tail = pimpl->tail->prev;
+            this->pimpl->tail->next = nullptr;
         }
-        delete pc;*/
+        delete pc;
 
     }
 
@@ -346,17 +343,18 @@ bool Player::loses() const {
 }*/
 
 int Player::recurrence() const {
+    List pc = this->pimpl->tail;
 
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "history is empty"};
     }else{
         int count = 1 ;
         int correct_char=0;
-        while(this->pimpl->tail->prev !=nullptr){
+        while(pc->prev !=nullptr){
             for(int i = 0; i < 8; i ++){
                 for (int k = 0; k < 8; k++){
 
-                    if(this->pimpl->tail->board[i][k]== this->pimpl->tail->prev->board[i][k]){
+                    if(pc->board[i][k]== pc->prev->board[i][k]){
                         correct_char++;
                     }
                 }
@@ -364,7 +362,7 @@ int Player::recurrence() const {
             if(correct_char==64){
                 count++;
             }
-            this->pimpl->tail=this->pimpl->tail->prev;
+            pc=pc->prev;
         }
         return count;
     }
