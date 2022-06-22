@@ -72,7 +72,6 @@ void Player::Impl::append(Player::piece y[8][8]) {
 } //FUNZIONA
 
 Player::~Player() {
-    cout<<"chiamo distruttore"<<endl;
     this->pimpl->destroy(this->pimpl->history);
     delete this->pimpl;
 }

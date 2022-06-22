@@ -8,6 +8,8 @@ int main() {
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    a=b;
+    b=a;
+    cout<<"a last board:"<<a.recurrence()<<endl;
+    cout<<"B last board:"<<b.recurrence()<<endl;
     return 0;
 }
