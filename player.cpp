@@ -310,6 +310,7 @@ void Player::pop() {
     }else{
         List pc = pimpl->tail;
         pimpl->tail = pimpl->tail->prev;
+        pimpl->tail->next =nullptr;
         delete pc;
 
 
