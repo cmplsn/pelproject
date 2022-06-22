@@ -104,8 +104,10 @@ Player::Player(int player_nr) {
 }
 
 Player& Player::operator=(const Player &x) {
-    if(this->pimpl != x.pimpl){
-
+    if(this != &x){
+        if(pimpl->history != nullptr){
+            pimpl->destroy(pimpl->history);
+        }
         this->pimpl = new Impl;
         this->pimpl->player_nr = x.pimpl->player_nr;
         this->pimpl->copy(this->pimpl->history,x.pimpl->history);
