@@ -44,7 +44,6 @@ void Player::Impl::destroy(List& x)  {
     }
 } // Function to destroy History. add to Class Destructor
 
-
 void Player::Impl::append(Player::piece y[8][8]) {
     if(history == nullptr){
         history = new Cell;
@@ -327,6 +326,9 @@ void Player::move(){
 
 bool Player::valid_move() const {
     bool validity = true;
+    int count_x = 0;
+    int count_o = 0;
+    int count_e = 0;
     if(this->pimpl->tail->prev == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "no move detectable"};
     }else {
@@ -335,8 +337,42 @@ bool Player::valid_move() const {
         }else{
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j < 8; j++){
+                    if(i%2 == 0){
+                        if(j%2 == 0){
+                            if(pimpl->tail->board[i][j]!= piece::e){
+                                validity =false;
+                            }
+                        }
+                    }else{
+                        if(j%2 != 0){
+                            if(pimpl->tail->board[i][j]!= piece::e){
+                                validity =false;
+                            }
+                        }
+                    }
+
+                    if(pimpl->tail->board[i][j]== piece::x|| pimpl->tail->board[i][j]==piece::X){
+                        count_x ++;
+                    }else{
+                        if(pimpl->tail->board[i][j]== piece::o ||pimpl->tail->board[i][j]== piece::O){
+                            count_o ++;
+                        }else{
+                            if(pimpl->tail->board[i][j]== piece::e){
+                                count_e ++;
+                            }
+                        }
+                    }
 
                 }
+            }
+            if(count_x > 12){
+                validity =false;
+            }
+            if(count_o >12){
+                validity = false;
+            }
+            if(count_e < 40){
+                validity =false;
             }
         }
     }

@@ -25,6 +25,6 @@ int main() {
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    Player b(2);
+   cout<<boolalpha<<a.valid_move();
     return 0;
 }
