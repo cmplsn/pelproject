@@ -298,6 +298,7 @@ void Player::load_board(const string &filename) {
 }//da file.txt a history
 //todo: check valid board (pedine number, pedine location ecc)
 //todo: controllare tutti casi errore file.eof file.good ecc
+
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
     int count = 0;
     for(int i = 0; i < 8; i++){
@@ -331,6 +332,12 @@ bool Player::valid_move() const {
     }else {
         if (pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)) {
             validity = false;
+        }else{
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+
+                }
+            }
         }
     }
     return validity;
@@ -355,18 +362,17 @@ void Player::pop() {
 
     }
 
-}
+}   //FATTO
 
-bool Player::wins(int player_nr) const {
+/*bool Player::wins(int player_nr) const {
     bool win = true;
     if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
         win = false;
     }
     return win;
+}//todo:COMPLETARE
 
-}
-
-/*bool Player::wins() const {
+bool Player::wins() const {
 
 }
 
@@ -404,4 +410,3 @@ int Player::recurrence() const {
     }
 
 } //FATTO
-
