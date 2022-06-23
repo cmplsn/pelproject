@@ -18,6 +18,7 @@ struct Player::Impl{
     void append(Player::piece y[8][8]);
     void destroy (List& x) ;
     List copy(List& dest, List source);
+    bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
 
 };
 
@@ -115,7 +116,7 @@ Player& Player::operator=(const Player &x) {
 
 return *this;
 
-}//todo: delete del player che devo riassegnare
+}
 
 char enum_to_char(Player::piece a){
     switch (a) {
@@ -297,14 +298,44 @@ void Player::load_board(const string &filename) {
 }//da file.txt a history
 //todo: check valid board (pedine number, pedine location ecc)
 //todo: controllare tutti casi errore file.eof file.good ecc
+bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
+    int count = 0;
+    for(int i = 0; i < 8; i++){
+        for(int j = 0; j <8; j++){
+            if(last[i][j]==previous[i][j]){
+                count ++;
+            }
+        }
+    }
+    if(count == 64){
+        return true;
+    }else{
+        return false;
+    };
+}
 
-/*void Player::move(){
+void Player::move(){
+    piece board[8][8];
 
+    if(this->pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds,"empty history"};
+    }else{
+
+    }
 }
 
 bool Player::valid_move() const {
+    bool validity = true;
+    if(this->pimpl->tail->prev == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "no move detectable"};
+    }else {
+        if (pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)) {
+            validity = false;
+        }
+    }
+    return validity;
 
-}*/
+}
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
@@ -326,11 +357,16 @@ void Player::pop() {
 
 }
 
-/*bool Player::wins(int player_nr) const {
+bool Player::wins(int player_nr) const {
+    bool win = true;
+    if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
+        win = false;
+    }
+    return win;
 
 }
 
-bool Player::wins() const {
+/*bool Player::wins() const {
 
 }
 

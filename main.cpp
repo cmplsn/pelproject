@@ -21,10 +21,10 @@ char enum_to_char2(Player::piece a){
 
 int main() {
 
-    Player a (1);
+    Player a;
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    Player b(a);
+    Player b(2);
     return 0;
 }

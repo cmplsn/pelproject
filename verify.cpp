@@ -47,7 +47,7 @@ int main(int argc, char **argv){
 			
 			if(v.valid_move()){
 			
-				if(p.wins(player_nr)){
+				if(v.wins(player_nr)){
 					cout << "Game over. Player " << player_nr << " wins." << endl;
 					exit(0);
 				}
