@@ -338,13 +338,13 @@ bool Player::valid_move() const {
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j < 8; j++){
                     if(i%2 == 0){
-                        if(j%2 == 0){
+                        if(j%2 != 0){
                             if(pimpl->tail->board[i][j]!= piece::e){
                                 validity =false;
                             }
                         }
                     }else{
-                        if(j%2 != 0){
+                        if(j%2 == 0){
                             if(pimpl->tail->board[i][j]!= piece::e){
                                 validity =false;
                             }
