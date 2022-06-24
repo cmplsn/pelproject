@@ -19,6 +19,7 @@ struct Player::Impl{
     void destroy (List& x) ;
     List copy(List& dest, List source);
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
+    bool valid_board(Player::piece y[8][8]);
 
 };
 
@@ -324,59 +325,80 @@ void Player::move(){
     }
 }
 
-bool Player::valid_move() const {
-    bool validity = true;
+bool Player::Impl::valid_board(Player::piece y[8][8]) {
     int count_x = 0;
-    int count_o = 0;
     int count_e = 0;
+    int count_o = 0;
+    for(int i = 0; i < 8; i++){
+        for(int j = 0; j < 8; j++){
+            if(i%2 == 0){
+                if(j%2 != 0){
+                    if(y[i][j]!= piece::e){
+                        return false;
+                    }
+                }
+            }else{
+                if(j%2 == 0){
+                    if(y[i][j]!= piece::e){
+                        return false;
+                    }
+                }
+            }
+
+            if(y[i][j]== piece::x|| y[i][j]==piece::X){
+                count_x ++;
+            }else{
+                if(y[i][j]== piece::o ||y[i][j]== piece::O){
+                    count_o ++;
+                }else{
+                    if(y[i][j]== piece::e){
+                        count_e ++;
+                    }
+                }
+            }
+
+        }
+    }
+    if(count_x > 12 || count_o >12){
+        return false;
+    }
+    if(count_e < 40){
+       return false;
+    }
+    int count_tot = count_x + count_e + count_o;
+    if (count_tot != 64){
+        return false;
+    }
+    return true;
+}
+
+bool Player::valid_move() const {
+    Player::piece last [8][8];
+    Player::piece previous[8][8];
+    for(int i = 0; i < 8; i++){
+        for(int j = 0; j<8; j++){
+            last[i][j]=pimpl->tail->board[i][j];
+            previous[i][j]=pimpl->tail->prev->board[i][j];
+        }
+    }
     if(this->pimpl->tail->prev == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "no move detectable"};
     }else {
         if (pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)) {
-            validity = false;
+            return false;
         }else{
-            for(int i = 0; i < 8; i++){
-                for(int j = 0; j < 8; j++){
-                    if(i%2 == 0){
-                        if(j%2 != 0){
-                            if(pimpl->tail->board[i][j]!= piece::e){
-                                validity =false;
-                            }
-                        }
-                    }else{
-                        if(j%2 == 0){
-                            if(pimpl->tail->board[i][j]!= piece::e){
-                                validity =false;
-                            }
-                        }
+            if(!pimpl->valid_board(pimpl->tail->board)){
+                return false;
+            }else{
+                /*for(int i = 0;i < 8;i++){
+                    for(int j = 0; j < 8; j++){
+                        if(pimpl->tail->prev)
                     }
-
-                    if(pimpl->tail->board[i][j]== piece::x|| pimpl->tail->board[i][j]==piece::X){
-                        count_x ++;
-                    }else{
-                        if(pimpl->tail->board[i][j]== piece::o ||pimpl->tail->board[i][j]== piece::O){
-                            count_o ++;
-                        }else{
-                            if(pimpl->tail->board[i][j]== piece::e){
-                                count_e ++;
-                            }
-                        }
-                    }
-
-                }
-            }
-            if(count_x > 12){
-                validity =false;
-            }
-            if(count_o >12){
-                validity = false;
-            }
-            if(count_e < 40){
-                validity =false;
+                }*/
             }
         }
     }
-    return validity;
+    return true;
 
 }
 
