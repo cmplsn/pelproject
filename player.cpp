@@ -323,7 +323,7 @@ void Player::move(){
     }else{
 
     }
-}
+}//todo: COMPLETARE
 
 bool Player::Impl::valid_board(Player::piece y[8][8]) {
     int count_x = 0;
@@ -448,9 +448,9 @@ void Player::pop() {
         win = false;
     }
     return win;
-}//todo:COMPLETARE
+}*/ //todo:COMPLETARE
 
-bool Player::wins() const {
+/*bool Player::wins() const {
 
 }
 
