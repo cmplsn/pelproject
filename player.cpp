@@ -36,7 +36,7 @@ List Player::Impl::copy(List &dest, List source) {
 
 }//add to copy constructor
 
-void Player::Impl::destroy(List& x)  {
+void Player::Impl::destroy(List& x) {
     if (x){
         destroy(x->next);
         delete x;
