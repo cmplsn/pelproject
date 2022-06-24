@@ -365,6 +365,7 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     if(count_e < 40){
        return false;
     }
+
     int count_tot = count_x + count_e + count_o;
     if (count_tot != 64){
         return false;
@@ -381,20 +382,39 @@ bool Player::valid_move() const {
             previous[i][j]=pimpl->tail->prev->board[i][j];
         }
     }
-    if(this->pimpl->tail->prev == nullptr){
-        throw player_exception{player_exception::index_out_of_bounds, "no move detectable"};
+    if(this->pimpl->tail->prev == nullptr){//una sola board -> nessuna mossa effettuata
+        throw player_exception{player_exception::index_out_of_bounds, "no move possible"};
     }else {
-        if (pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)) {
+        if (pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)) {//stessa board ripetuta == nessuna mossa effettuata
             return false;
         }else{
-            if(!pimpl->valid_board(pimpl->tail->board)){
+            if(!pimpl->valid_board(pimpl->tail->board)){//numero pezzi, spazi bianchi ecc
                 return false;
             }else{
-                /*for(int i = 0;i < 8;i++){
+                for(int i = 0; i < 8 ; i++){
                     for(int j = 0; j < 8; j++){
-                        if(pimpl->tail->prev)
+                        if(i== 7 && previous[i][j] == piece::x && last[i][j] !=piece::X){
+                            return false;
+                        }else{
+                            if(i == 0 && previous[i][j]==piece::o && last[i][j]!=piece::O){
+                                return false;
+                            }
+                        }
+                        if(previous[i][j] == piece::x ){
+                            if(previous[i+1][j+1] == piece::o && previous[i+2][j+2]==piece::e){
+                                if(!(last[i][j]==piece::e && last[i+1][j+1]==piece::e && last[i+2][j+2]==piece::x) ){
+                                    return false;
+                                }
+                            }
+
+                        }/*else{
+                            if(last[i][j] == piece::o ){
+
+                            }
+                        }*/
                     }
-                }*/
+                }
+
             }
         }
     }
