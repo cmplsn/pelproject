@@ -292,11 +292,15 @@ void Player::load_board(const string &filename) {
         if(!myfile.eof()){
             throw player_exception{player_exception::invalid_board, "copy incomplete, did not reach end of file"};
         }
+
     }
-    this->pimpl->append(board);
+    if(pimpl->valid_board(board)) {
+        this->pimpl->append(board);
+    }else{
+        throw player_exception{player_exception::missing_file, "invalid board format"};
+    }
 
 }//da file.txt a history
-//todo: check valid board (pedine number, pedine location ecc)
 //todo: controllare tutti casi errore file.eof file.good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
