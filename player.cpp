@@ -321,10 +321,28 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 
 void Player::move(){
     piece board[8][8];
+    for(int k = 0; k < 8; k++){
+        for(int m = 0; m < 8; m++){
+            board[k][m] = pimpl->tail->board[k][m];
+        }
+    }
 
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds,"empty history"};
     }else{
+        if(pimpl->player_nr == 1){
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+
+                }
+            }
+
+        }else{
+            if(pimpl->player_nr==2){
+
+            }
+        };
+
 
     }
 }//todo: COMPLETARE
@@ -377,7 +395,7 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     return true;
 }
 
-bool Player::valid_move() const {
+/*bool Player::valid_move() const {
     Player::piece last [8][8];
     Player::piece previous[8][8];
     for(int i = 0; i < 8; i++){
@@ -411,11 +429,11 @@ bool Player::valid_move() const {
                                 }
                             }
 
-                        }/*else{
+                        }else{
                             if(last[i][j] == piece::o ){
 
                             }
-                        }*/
+                        }
                     }
                 }
 
@@ -424,7 +442,7 @@ bool Player::valid_move() const {
     }
     return true;
 
-}
+}*/
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
@@ -452,9 +470,9 @@ void Player::pop() {
         win = false;
     }
     return win;
-}*/ //todo:COMPLETARE
+} //todo:COMPLETARE
 
-/*bool Player::wins() const {
+bool Player::wins() const {
 
 }
 
