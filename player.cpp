@@ -334,6 +334,15 @@ void Player::move(){
         if(pimpl->player_nr == 1){
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
+                        if(board[i][j]==x){
+                            if(j==0){
+
+                            }
+                        }else{
+                            if(board[i][j]== o){
+
+                            }
+                        }
                         if (i <= 5) {
                             if (j >= 2 && j <= 5) {
                                 if (board[i][j] == x) {

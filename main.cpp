@@ -21,11 +21,13 @@ char enum_to_char2(Player::piece a){
 
 int main() {
 
-    Player a;
+    Player a(1);
+    Player b(2);
+
     a.init_board("../boards/es.txt");
-    a.init_board("../boards/es_1.txt");
     a.load_board("../boards/es.txt");
-    a.load_board("../boards/es_1.txt");
+    a.move();
+    b.move();
 
     return 0;
 }
