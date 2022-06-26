@@ -239,7 +239,7 @@ void Player::store_board(const string &filename, int history_offset) const {
     if(!myfile){
         throw player_exception{player_exception::missing_file, "file no found"};
     }else{
-        while(pimpl->tail->prev!=nullptr){
+        while(count != history_offset && pimpl->tail->prev!=nullptr){
             pimpl->tail=pimpl->tail->prev;
             count++;
         }
@@ -320,6 +320,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 }
 
 void Player::move(){
+    int count = 0;
     piece board[8][8];
     for(int k = 0; k < 8; k++){
         for(int m = 0; m < 8; m++){
@@ -331,13 +332,30 @@ void Player::move(){
         throw player_exception{player_exception::index_out_of_bounds,"empty history"};
     }else{
         if(pimpl->player_nr == 1){
-            for(int i = 0; i < 8; i++){
-                for(int j = 0; j < 8; j++){
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (i <= 5) {
+                            if (j >= 2 && j <= 5) {
+                                if (board[i][j] == x) {
+                                    if (board[i + 1][j + 1] == e) {
+                                        if (board[i + 2][j + 2] == e && board[i + 2][j] == e) {
+                                            board[i][j] = e;
+                                            board[i + 1][j + 1] = x;
+                                            return this->pimpl->append(board);
+                                        }
 
+                                    } else {
+                                        if (board[i + 1][j - 1] == e) {
+                                            cout << "ciao";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-
-        }else{
+        }
+        else{
             if(pimpl->player_nr==2){
 
             }

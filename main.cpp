@@ -23,8 +23,9 @@ int main() {
 
     Player a;
     a.init_board("../boards/es.txt");
+    a.init_board("../boards/es_1.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es_1.txt");
-    a.move();
+
     return 0;
 }
