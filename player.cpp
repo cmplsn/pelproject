@@ -327,8 +327,38 @@ void Player::move(){
             board[k][m] = pimpl->tail->board[k][m];
         }
     }
-
     if(this->pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "empty history"};
+    }else{
+        if(pimpl->player_nr==1){
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j <8; j++){
+                    if(board[i][j]==x){
+
+                    }
+                    if(board[i][j]== X){
+
+                    }
+                }
+            }
+
+        }else{
+            if(pimpl->player_nr ==2){
+                for(int i = 0; i < 8; i++){
+                    for(int j = 0; j < 8; j++){
+                        if(board[i][j]==o){
+
+                        }
+                        if(board[i][j]==O){
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /*if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds,"empty history"};
     }else{
         if(pimpl->player_nr == 1){
@@ -350,12 +380,16 @@ void Player::move(){
                                         if (board[i + 2][j + 2] == e && board[i + 2][j] == e) {
                                             board[i][j] = e;
                                             board[i + 1][j + 1] = x;
-                                            return this->pimpl->append(board);
+                                        }else{
+
                                         }
 
                                     } else {
                                         if (board[i + 1][j - 1] == e) {
-                                            cout << "ciao";
+                                            if(board[i+2][j-2] == e && board[i+2][j]==e){
+                                                board[i][j]=e;
+                                                board[i+1][j-1]=x;
+                                            }
                                         }
                                     }
                                 }
@@ -371,7 +405,7 @@ void Player::move(){
         };
 
 
-    }
+    }*/
 }//todo: COMPLETARE
 
 bool Player::Impl::valid_board(Player::piece y[8][8]) {
