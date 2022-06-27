@@ -25,6 +25,8 @@ int main() {
     Player b(2);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
+    a.load_board("../boards/es.txt");
+    cout<<enum_to_char2(a(1,0,1));
 
     return 0;
 }

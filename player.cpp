@@ -156,8 +156,9 @@ Player::piece char_to_enum(char x){
 
 Player::piece Player::operator()(int r, int c, int history_offset) const {
     int cont = 0;
-    while(this->pimpl->tail->prev && cont !=history_offset){
-        pimpl->tail =pimpl->tail->prev;
+    List pc = pimpl->tail;
+    while(pc->prev && cont !=history_offset){
+        pc = pc->prev;
         cont++;
     }
     if(cont != history_offset){
@@ -166,7 +167,7 @@ Player::piece Player::operator()(int r, int c, int history_offset) const {
         if(r<0 ||r >7 || c <0 ||c>7){
             throw player_exception{player_exception::index_out_of_bounds, "requested cell doesn't exist"};
         }else{
-            Player::piece x = this->pimpl->tail->board[r][c];
+            Player::piece x = pc->board[r][c];
             return x;
         }
     }
