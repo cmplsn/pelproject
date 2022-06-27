@@ -79,11 +79,7 @@ Player::~Player() {
 Player::Player(const Player& x) {
     this-> pimpl =new Impl;
     this->pimpl->player_nr = x.pimpl->player_nr;
-    if(x.pimpl->history== nullptr){
-        this->pimpl->history = nullptr;
-    }else{
-        this->pimpl->copy(this->pimpl->history, x.pimpl->history);
-    }
+    this->pimpl->copy(this->pimpl->history, x.pimpl->history);
 
 
 }
@@ -240,21 +236,22 @@ void Player::store_board(const string &filename, int history_offset) const {
     if(!myfile){
         throw player_exception{player_exception::missing_file, "file no found"};
     }else{
-        while(count != history_offset && pimpl->tail->prev!=nullptr){
-            pimpl->tail=pimpl->tail->prev;
+        List pc = pimpl->tail;
+        while(pc->prev && count != history_offset){
+            pc=pc->prev;
             count++;
         }
         if(count!=history_offset){
             throw player_exception{player_exception::index_out_of_bounds, "history shorter than offset requested"};
         }else{
-            int boardsize = sizeof(pimpl->tail->board)/ sizeof(*pimpl->tail->board);
-            int rowsize=sizeof(pimpl->tail->board[0])/sizeof(*pimpl->tail->board[0]);
+            int boardsize = sizeof(pc->board)/ sizeof(*pc->board);
+            int rowsize=sizeof(pc->board[0])/sizeof(*pc->board[0]);
             for(int i = boardsize-1; i >= 0; i --){
                 for (int k = 0; k < rowsize; k++){
                     if(k!=7){
-                        myfile<<enum_to_char(pimpl->tail->board[i][k])<<' ';
+                        myfile<<enum_to_char(pc->board[i][k])<<' ';
                     }else{
-                        myfile<<enum_to_char(pimpl->tail->board[i][k]);
+                        myfile<<enum_to_char(pc->board[i][k]);
                     }
                 }
                 if(i!=0){
