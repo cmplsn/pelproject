@@ -23,7 +23,6 @@ char enum_to_char2(Player::piece a){
 int main() {
     Player a(1);
     Player b(2);
-    Player c(b);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
