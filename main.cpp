@@ -17,17 +17,14 @@ char enum_to_char2(Player::piece a){
             return ' ';
     }
 
-};
+}
 
 int main() {
 
     Player a(1);
     Player b(2);
-
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    a.move();
-    b.move();
 
     return 0;
 }

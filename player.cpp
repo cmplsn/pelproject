@@ -220,8 +220,8 @@ void Player::init_board(const string &filename) const {
     }
 
     for(int i = board_size-1; i >= 0; i --){
-        for (int k = row_size-1; k >= 0; k--){
-            if(k!=0){
+        for (int k = 0; k <row_size; k++){
+            if(k!=7){
                 myfile<<enum_to_char(board[i][k])<<' ';
             }else{
                 myfile<<enum_to_char(board[i][k]);
@@ -316,7 +316,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
         return true;
     }else{
         return false;
-    };
+    }
 }
 
 void Player::move(){
@@ -334,6 +334,8 @@ void Player::move(){
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j <8; j++){
                     if(board[i][j]==x){
+                        
+
 
                     }
                     if(board[i][j]== X){
@@ -347,6 +349,7 @@ void Player::move(){
                 for(int i = 0; i < 8; i++){
                     for(int j = 0; j < 8; j++){
                         if(board[i][j]==o){
+
 
                         }
                         if(board[i][j]==O){
@@ -414,14 +417,14 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     int count_o = 0;
     for(int i = 0; i < 8; i++){
         for(int j = 0; j < 8; j++){
-            if(i%2 == 0){
-                if(j%2 != 0){
+            if(i%2==0){
+                if(j%2==0){
                     if(y[i][j]!= piece::e){
                         return false;
                     }
                 }
             }else{
-                if(j%2 == 0){
+                if(j%2!=0){
                     if(y[i][j]!= piece::e){
                         return false;
                     }
