@@ -17,10 +17,10 @@ char enum_to_char2(Player::piece a){
             return ' ';
     }
 
+
 }
 
 int main() {
-
     Player a(1);
     Player b(2);
     Player c(b);
