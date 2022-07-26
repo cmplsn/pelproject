@@ -28,6 +28,5 @@ int main() {
     a.load_board("../boards/es.txt");
     a.store_board("../boards/es_dioc.txt",1);
     cout<<enum_to_char2(a(1,0,1));
-
     return 0;
 }
