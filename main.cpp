@@ -29,7 +29,7 @@ int main() {
     a.load_board("../boards/es.txt");
     a.store_board("../boards/es_1.txt");
     a.store_board("../boards/es.txt");
-    cout<<boolalpha<<a.loses(1)<<endl;
-    cout<<a.recurrence()<<endl;
+
+    a.loses(1);
     return 0;
 }

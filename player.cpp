@@ -308,6 +308,9 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
     for(int i = 0; i < 8; i++){
         for(int j = 0; j <8; j++){
             if(last[i][j]==previous[i][j]){
+                /*cout<<"riga:"<<i<<" colonna:"<<j<<endl;
+                 *cout<<"previousboard:"<<enum_to_char(previous[i][j])<<endl;
+                 *cout<<"lastcell:"<<enum_to_char(last[i][j])<<endl;*/
                 count ++;
             }
         }
@@ -461,7 +464,7 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     return true;
 }
 
-void Player::Impl::possible_move(Player::piece last_b[8][8]) {
+void Player::Impl::possible_move(Player::piece last_b[8][8]) {//passagio array bidimensionale
     if(this->player_nr == 1){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j< 8; j++){
