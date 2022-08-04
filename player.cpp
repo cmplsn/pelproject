@@ -20,6 +20,7 @@ struct Player::Impl{
     List copy(List& dest, List source);
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
+    void possible_move (Player::piece last_b[8][8]);
 
 };
 
@@ -316,10 +317,12 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
     }else{
         return false;
     }
-} // todo: completare in caso history contenga meno di 2 boards
+}
+//todo: completare in caso history contenga meno di 2 boards
 
 void Player::move(){
     int count = 0;
+    pimpl->possible_move(pimpl->tail->board);
     piece board[8][8];
     for(int k = 0; k < 8; k++){
         for(int m = 0; m < 8; m++){
@@ -456,6 +459,37 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
         return false;
     }
     return true;
+}
+
+void Player::Impl::possible_move(Player::piece last_b[8][8]) {
+    if(this->player_nr == 1){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j< 8; j++){
+                if(last_b[i][j]==x){//caso player 1 pedina x
+
+                }else{
+                    if(last_b[i][j]== X){ //caso player 1 DAMA X
+
+                    }
+                }
+            }
+        }
+    }else{
+        if(this->player_nr == 2){
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+                    if(last_b[i][j]== o){ //caso player 2 pedina o
+
+                    }else{
+                        if(last_b[i][j] == O){//caso player 2 DAMA O
+
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 }
 
 /*bool Player::valid_move() const {
