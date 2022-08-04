@@ -316,7 +316,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
     }else{
         return false;
     }
-}
+} // todo: completare in caso history contenga meno di 2 boards
 
 void Player::move(){
     int count = 0;
@@ -527,7 +527,7 @@ void Player::pop() {
 
 }   //FATTO
 
-/*bool Player::wins(int player_nr) const {
+bool Player::wins(int player_nr) const {
     bool win = true;
     if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
         win = false;
@@ -535,15 +535,19 @@ void Player::pop() {
     return win;
 } //todo:COMPLETARE
 
-bool Player::wins() const {
+/*bool Player::wins() const {
 
-}
+}*/
 
 bool Player::loses(int player_nr) const {
-
+    if(this->pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)){
+        return true;
+    }else{
+        return false;
+    }
 }
 
-bool Player::loses() const {
+/*bool Player::loses() const {
 
 }*/
 

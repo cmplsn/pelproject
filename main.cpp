@@ -25,8 +25,7 @@ int main() {
     Player b(2);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    a.load_board("../boards/es.txt");
-    a.store_board("../boards/es_1.txt");
-    cout<<enum_to_char2(a(1,0,1));
+    cout<<boolalpha<<a.loses(1)<<endl;
+    cout<<a.recurrence()<<endl;
     return 0;
 }
