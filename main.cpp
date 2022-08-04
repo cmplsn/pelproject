@@ -26,6 +26,5 @@ int main() {
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
     a.store_board("../boards/es_1.txt");
-    Player c (a);
     return 0;
 }
