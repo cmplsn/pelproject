@@ -20,7 +20,7 @@ struct Player::Impl{
     List copy(List& dest, List source);
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
-    void possible_move (Player::piece last_b[8][8]);
+    void possible_move (Player::piece last_b[8][8], int (&saved_moves)[48]);
 
 };
 
@@ -325,7 +325,8 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 
 void Player::move(){
     int count = 0;
-    pimpl->possible_move(pimpl->tail->board);
+    stack<int> moves;
+    stack<int> points;
     piece board[8][8];
     for(int k = 0; k < 8; k++){
         for(int m = 0; m < 8; m++){
@@ -339,8 +340,12 @@ void Player::move(){
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j <8; j++){
                     if(board[i][j]==x){
-                        
-
+                        if(i+1 == 7){
+                            if(board[i+1][j+1]== e){
+                                moves.push(((i+1)*10)+j+1 );
+                                points.push(1);
+                            }
+                        }
 
                     }
                     if(board[i][j]== X){
@@ -464,12 +469,15 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     return true;
 }
 
-void Player::Impl::possible_move(Player::piece last_b[8][8]) {//passagio array bidimensionale
+void Player::Impl::possible_move(Player::piece last_b[8][8], int (&saved_moves)[48]) {//passagio array bidimensionale
     if(this->player_nr == 1){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j< 8; j++){
                 if(last_b[i][j]==x){//caso player 1 pedina x
-
+                    if(i+1 == 7){
+                        if(last_b[i+1][j+1]== e){
+                        }
+                    }
                 }else{
                     if(last_b[i][j]== X){ //caso player 1 DAMA X
 
@@ -564,7 +572,7 @@ void Player::pop() {
 
 }   //FATTO
 
-bool Player::wins(int player_nr) const {
+/*bool Player::wins(int player_nr) const {
     bool win = true;
     if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
         win = false;
@@ -572,9 +580,9 @@ bool Player::wins(int player_nr) const {
     return win;
 } //todo:COMPLETARE
 
-/*bool Player::wins() const {
+bool Player::wins() const {
 
-}*/
+}
 
 bool Player::loses(int player_nr) const {
     if(this->pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)){
@@ -584,7 +592,7 @@ bool Player::loses(int player_nr) const {
     }
 }
 
-/*bool Player::loses() const {
+bool Player::loses() const {
 
 }*/
 
