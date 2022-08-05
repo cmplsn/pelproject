@@ -20,7 +20,7 @@ struct Player::Impl{
     List copy(List& dest, List source);
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
-    void possible_move (Player::piece last_b[8][8], int (&saved_moves)[48]);
+    Player::piece possible_move (Player::piece last_b[8][8], int i, int j, int in, int jn);
 
 };
 
@@ -325,45 +325,40 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 
 void Player::move(){
     int count = 0;
-    stack<int> moves;
-    stack<int> points;
-    piece board[8][8];
-    for(int k = 0; k < 8; k++){
-        for(int m = 0; m < 8; m++){
-            board[k][m] = pimpl->tail->board[k][m];
-        }
-    }
+
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "empty history"};
     }else{
-        if(pimpl->player_nr==1){
+        if(pimpl->player_nr ==1){
             for(int i = 0; i < 8; i++){
-                for(int j = 0; j <8; j++){
-                    if(board[i][j]==x){
-                        if(i+1 == 7){
-                            if(board[i+1][j+1]== e){
-                                moves.push(((i+1)*10)+j+1 );
-                                points.push(1);
-                            }
+                for(int j = 0; j< 8; j++){
+                    if(pimpl->tail->board[i][j]=x){
+                        pimpl->possible_move(pimpl->tail->board, i,j, i+1,j+1);
+                        pimpl->possible_move(pimpl->tail->board, i, j, i+1, j-1);
+                    }else{
+                        if(pimpl->tail->board[i][j]== X){
+                            pimpl->possible_move(pimpl->tail->board,i,j, i+1, j+1);
+                            pimpl->possible_move(pimpl->tail->board,i,j, i+1,j-1);
+                            pimpl->possible_move(pimpl->tail->board,i,j, i-1, j+1);
+                            pimpl->possible_move(pimpl->tail->board,i,j, i-1, j-1);
                         }
-
-                    }
-                    if(board[i][j]== X){
-
                     }
                 }
             }
-
         }else{
             if(pimpl->player_nr ==2){
-                for(int i = 0; i < 8; i++){
-                    for(int j = 0; j < 8; j++){
-                        if(board[i][j]==o){
-
-
-                        }
-                        if(board[i][j]==O){
-
+                for(int i= 0; i < 8; i++){
+                    for(int j = 0; j<8; j++){
+                        if(pimpl->tail->board[i][j] == o){
+                            pimpl->possible_move(pimpl->tail->board, i, j, i+1, j+1);
+                            pimpl->possible_move(pimpl->tail->board, i, j, i+1, j-1);
+                        }else{
+                            if(pimpl->tail->board[i][j] == O){
+                                pimpl->possible_move(pimpl->tail->board, i, j,i+1,j+1);
+                                pimpl->possible_move(pimpl->tail->board, i, j,i+1, j-1);
+                                pimpl->possible_move(pimpl->tail->board, i, j,i-1, j+1);
+                                pimpl->possible_move(pimpl->tail->board, i, j,i-1, j-1);
+                            }
                         }
                     }
                 }
@@ -371,54 +366,6 @@ void Player::move(){
         }
     }
 
-    /*if(this->pimpl->history == nullptr){
-        throw player_exception{player_exception::index_out_of_bounds,"empty history"};
-    }else{
-        if(pimpl->player_nr == 1){
-                for (int i = 0; i < 8; i++) {
-                    for (int j = 0; j < 8; j++) {
-                        if(board[i][j]==x){
-                            if(j==0){
-
-                            }
-                        }else{
-                            if(board[i][j]== o){
-
-                            }
-                        }
-                        if (i <= 5) {
-                            if (j >= 2 && j <= 5) {
-                                if (board[i][j] == x) {
-                                    if (board[i + 1][j + 1] == e) {
-                                        if (board[i + 2][j + 2] == e && board[i + 2][j] == e) {
-                                            board[i][j] = e;
-                                            board[i + 1][j + 1] = x;
-                                        }else{
-
-                                        }
-
-                                    } else {
-                                        if (board[i + 1][j - 1] == e) {
-                                            if(board[i+2][j-2] == e && board[i+2][j]==e){
-                                                board[i][j]=e;
-                                                board[i+1][j-1]=x;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-        }
-        else{
-            if(pimpl->player_nr==2){
-
-            }
-        };
-
-
-    }*/
 }//todo: COMPLETARE
 
 bool Player::Impl::valid_board(Player::piece y[8][8]) {
@@ -469,37 +416,15 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     return true;
 }
 
-void Player::Impl::possible_move(Player::piece last_b[8][8], int (&saved_moves)[48]) {//passagio array bidimensionale
-    if(this->player_nr == 1){
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j< 8; j++){
-                if(last_b[i][j]==x){//caso player 1 pedina x
-                    if(i+1 == 7){
-                        if(last_b[i+1][j+1]== e){
-                        }
-                    }
-                }else{
-                    if(last_b[i][j]== X){ //caso player 1 DAMA X
+Player::piece Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
+    if(field[i][j] == x){
+        if(in == 7){
+            if(field[in][jn]==e){
+                field[i][j]=e;
+                field[in][jn]= X;
 
-                    }
-                }
             }
         }
-    }else{
-        if(this->player_nr == 2){
-            for(int i = 0; i < 8; i++){
-                for(int j = 0; j < 8; j++){
-                    if(last_b[i][j]== o){ //caso player 2 pedina o
-
-                    }else{
-                        if(last_b[i][j] == O){//caso player 2 DAMA O
-
-                        }
-                    }
-                }
-            }
-        }
-
     }
 }
 
