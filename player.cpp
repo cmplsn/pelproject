@@ -323,6 +323,32 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 }
 //todo: completare in caso history contenga meno di 2 boards
 
+Player::piece* Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
+    Player::piece new_field[8][8];
+    bool moved =false;
+    while(!moved){
+        if(field[i][j] == x){
+            if(in == 7){
+                if(field[in][jn]==e){
+                    field[i][j]=e;
+                    field[in][jn]= X;
+                    moved = true;
+                }
+                for(int i = 0; i < 8; i++){
+                    for(int j = 0; j< 8; j++){
+                        new_field[i][j]=field[i][j];
+                    }
+                }
+            }else{
+                return nullptr;
+
+            }
+
+            return reinterpret_cast<Player::piece *>(new_field);
+        }
+    }
+}
+
 void Player::move(){
     Player::piece new_board[8][8];
     bool moved = false;
@@ -431,31 +457,6 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     return true;
 }
 
-Player::piece* Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
-    Player::piece new_field[8][8];
-    bool moved =false;
-    while(!moved){
-        if(field[i][j] == x){
-            if(in == 7){
-                if(field[in][jn]==e){
-                    field[i][j]=e;
-                    field[in][jn]= X;
-                    moved = true;
-                }
-                for(int i = 0; i < 8; i++){
-                    for(int j = 0; j< 8; j++){
-                        new_field[i][j]=field[i][j];
-                    }
-                }
-            }else{
-                return nullptr;
-
-            }
-
-            return reinterpret_cast<Player::piece *>(new_field);
-        }
-    }
-}
 
 /*bool Player::valid_move() const {
     Player::piece last [8][8];
