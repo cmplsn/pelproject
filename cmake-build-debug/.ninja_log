@@ -4,3 +4,12 @@
 4	644	1659684622673331240	CMakeFiles/pelproject.dir/main.cpp.o	cc717f8bf1d4041
 3	164	1659534809462868642	CMakeFiles/pelproject.dir/verify.cpp.o	410402c7de33109c
 2	163	1659534809462867767	CMakeFiles/pelproject.dir/play.cpp.o	ba94e461d86e3874
+4	163	1660837810141780030	CMakeFiles/pelproject.dir/play.cpp.o	ba94e461d86e3874
+4	163	1660837810141780363	CMakeFiles/pelproject.dir/verify.cpp.o	410402c7de33109c
+2	604	1660837810578793008	CMakeFiles/pelproject.dir/main.cpp.o	cc717f8bf1d4041
+3	623	1660837810597401628	CMakeFiles/pelproject.dir/player.cpp.o	2f766d50d3dc673
+623	668	1660837810649284999	pelproject	4b447e936729c2fc
+1	588	1660837980548474265	CMakeFiles/pelproject.dir/player.cpp.o	2f766d50d3dc673
+588	632	1660837980604269668	pelproject	4b447e936729c2fc
+5	663	1660838502616258692	CMakeFiles/pelproject.dir/player.cpp.o	2f766d50d3dc673
+663	737	1660838502710138597	pelproject	4b447e936729c2fc

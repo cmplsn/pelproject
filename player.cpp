@@ -20,7 +20,7 @@ struct Player::Impl{
     List copy(List& dest, List source);
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
-    bool possible_move(Player::piece last_b[8][8], int i, int j, int in, int jn);
+    Player::piece* possible_move (Player::piece source[8][8], int i, int j, int in, int jn);
 
 };
 
@@ -324,51 +324,55 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 //todo: completare in caso history contenga meno di 2 boards
 
 void Player::move(){
-    Player::piece board[8][8];
-    for(int i = 0; i<8; i++){
-        for(int j = 0; j<8; j++){
-            board[i][j]= pimpl->tail->board[i][j];
-        }
-    }
+    Player::piece new_board[8][8];
+    bool moved = false;
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "empty history"};
-    }else{
+
+    } else{
         if(pimpl->player_nr ==1){
-            for(int i = 0; i < 8; i++){
-                for(int j = 0; j< 8; j++){
-                    if(pimpl->tail->board[i][j]=x){
+            while(moved==false) {
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (pimpl->tail->board[i][j] == x) {
+                            if(pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)!= nullptr) {
 
-                        if(pimpl->possible_move(pimpl->tail->board, i, j, i+1,j+1)){
 
-                        }else{
-                            if(pimpl->possible_move(pimpl->tail->board, i, j, i+1, j-1)){
+                            }else{
+                                if(pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
+
+                                }
+                            }
+
+
+                        } else {
+                            if (pimpl->tail->board[i][j] == X) {
+
+                                pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
+                                pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1);
+                                pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j + 1);
+                                pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j - 1);
 
                             }
-                        }
-
-                    }else{
-                        if(pimpl->tail->board[i][j]== X){
-                            pimpl->possible_move(pimpl->tail->board,i,j, i+1, j+1);
-                            pimpl->possible_move(pimpl->tail->board,i,j, i+1,j-1);
-                            pimpl->possible_move(pimpl->tail->board,i,j, i-1, j+1);
-                            pimpl->possible_move(pimpl->tail->board,i,j, i-1, j-1);
                         }
                     }
                 }
             }
         }else{
             if(pimpl->player_nr ==2){
-                for(int i= 0; i < 8; i++){
-                    for(int j = 0; j<8; j++){
-                        if(pimpl->tail->board[i][j] == o){
-                            pimpl->possible_move(pimpl->tail->board, i, j, i+1, j+1);
-                            pimpl->possible_move(pimpl->tail->board, i, j, i+1, j-1);
-                        }else{
-                            if(pimpl->tail->board[i][j] == O){
-                                pimpl->possible_move(pimpl->tail->board, i, j,i+1,j+1);
-                                pimpl->possible_move(pimpl->tail->board, i, j,i+1, j-1);
-                                pimpl->possible_move(pimpl->tail->board, i, j,i-1, j+1);
-                                pimpl->possible_move(pimpl->tail->board, i, j,i-1, j-1);
+                while(moved == false) {
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            if (pimpl->tail->board[i][j] == o) {
+                                pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
+                                pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1);
+                            } else {
+                                if (pimpl->tail->board[i][j] == O) {
+                                    pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
+                                    pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1);
+                                    pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j + 1);
+                                    pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j - 1);
+                                }
                             }
                         }
                     }
@@ -427,16 +431,28 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     return true;
 }
 
-bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
-    if(field[i][j] == x){
-        if(in == 7){
-            if(field[in][jn]==e){
-                field[i][j]=e;
-                field[in][jn]= X;
+Player::piece* Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
+    Player::piece new_field[8][8];
+    bool moved =false;
+    while(!moved){
+        if(field[i][j] == x){
+            if(in == 7){
+                if(field[in][jn]==e){
+                    field[i][j]=e;
+                    field[in][jn]= X;
+                    moved = true;
+                }
+                for(int i = 0; i < 8; i++){
+                    for(int j = 0; j< 8; j++){
+                        new_field[i][j]=field[i][j];
+                    }
+                }
+            }else{
+                return nullptr;
 
             }
-        }else{
 
+            return reinterpret_cast<Player::piece *>(new_field);
         }
     }
 }
