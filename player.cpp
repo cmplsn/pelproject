@@ -334,17 +334,13 @@ Player::piece* Player::Impl::possible_move(Player::piece field[8][8], int i, int
                     field[in][jn]= X;
                     moved = true;
                 }
-                for(int i = 0; i < 8; i++){
-                    for(int j = 0; j< 8; j++){
-                        new_field[i][j]=field[i][j];
-                    }
-                }
+
             }else{
                 return nullptr;
 
             }
 
-            return reinterpret_cast<Player::piece *>(new_field);
+            return *new_field;
         }
     }
 }
@@ -362,7 +358,7 @@ void Player::move(){
                     for (int j = 0; j < 8; j++) {
                         if (pimpl->tail->board[i][j] == x) {
                             if(pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)!= nullptr) {
-
+                                new_board[0][0] = *pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
 
                             }else{
                                 if(pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
