@@ -81,8 +81,6 @@ Player::Player(const Player& x) {
     this-> pimpl =new Impl;
     this->pimpl->player_nr = x.pimpl->player_nr;
     this->pimpl->copy(this->pimpl->history, x.pimpl->history);
-
-
 }
 
 Player::Player(int player_nr) {
@@ -330,44 +328,64 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
             new_field[m][n]=field[m][n];
         }
     }
-        if(field[i][j] == x){
-            if(in == 7){
-                if(field[in][jn]==e){
-                    new_field[i][j]=e;
-                    new_field[in][jn]= X;
-                }
 
-            }else{
-                if(field[in][jn]==e){
-                    new_field[i][j]=e;
-                    new_field[in][jn]=x;
-                }else{
-                    return false;
-                }
-
+    if(field[i][j] == x){
+        if(in == 7){
+            if(field[in][jn]==e){
+                new_field[i][j]=e;
+                new_field[in][jn]= X;
+                this->append(new_field);
+                return true;
             }
-            this->append(new_field);
-            return true;
+        }else{
+            // PEDINA x MANGIA:
+            if(i<=5 && jn == j+1){
+                if(j<=5 && field[i+1][j+1]==o && field[i+2][j+2]==o){
+
+                    new_field[i][j] = e;
+                    new_field[i+1][j+1]=o;
+
+                    if(i+2 == 7){   //x mangia e pedina diventa dama
+                        new_field[i+2][j+2]= X;
+                    }else{
+                        new_field[i+2][j+2]= x;
+                    }
+                    this->append(new_field);
+                }
+            }
+
+
+            /*if(field[in][jn]==e){
+                new_field[i][j]=e;
+                new_field[in][jn]=x;
+            }else{
+                if()
+                return false;
+            }*/
         }
+        this->append(new_field);
+        return true;
+    }
 }
 
 void Player::move(){
-    Player::piece *new_board[8][8];
     bool moved = false;
     if(this->pimpl->history == nullptr){
+
         throw player_exception{player_exception::index_out_of_bounds, "empty history"};
 
     } else{
         if(pimpl->player_nr ==1){
             int i = 0;
-            while(i <8 && moved == false){
+            while(i <8 && !moved){
                 int j= 0;
-                while(j<8 && moved == false){
+                while(j<8 && !moved){
                     if(pimpl->tail->board[i][j]==x){
-                        if(j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){
+                        if(j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
                             moved = true;
                         }else{
                             if(j>=1 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
+                                moved = true;
 
                             }
                         }

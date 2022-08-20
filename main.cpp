@@ -8,6 +8,5 @@ int main() {
     a.load_board("../boards/es.txt");
     a.store_board("../boards/es_1.txt");
     a.move();
-    cout<<"ok"<<endl;
     return 0;
 }
