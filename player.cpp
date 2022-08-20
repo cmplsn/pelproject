@@ -339,11 +339,14 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             new_field[in][jn] = e;
                             if (in + 1 == 7) {
                                 new_field[in + 1][jn + 1] = X;
+                                this->append(new_field);
+                                return true;
                             } else {
                                 new_field[in + 1][jn + 1] = x;
+                                this->append(new_field);
+                                return true;
                             }
-                            this->append(new_field);
-                            return true;
+
                         }
 
                     }
@@ -353,12 +356,15 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             new_field[in][jn] = e;
                             if (in + 1 == 7) {
                                 new_field[in + 1][jn - 1] = X;
+                                this->append(new_field);
+                                return true;
 
                             } else {
                                 new_field[in + 1][jn - 1] = x;
+                                this->append(new_field);
+                                return true;
                             }
-                            this->append(new_field);
-                            return true;
+
                         }
                     }
                 }
@@ -367,12 +373,15 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                         new_field[i][j]=e;
                         if (in == 7) {
                             new_field[in][jn] = X;
+                            this->append(new_field);
+                            return true;
 
                         } else {
                             new_field[in][jn] = x;
+                            this->append(new_field);
+                            return true;
                         }
-                        this->append(new_field);
-                        return true;
+
 
                     }
                 }
@@ -381,14 +390,19 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                         new_field[i][j]=e;
                         if (in == 7) {
                             new_field[in][jn] = X;
-
+                            this->append(new_field);
+                            return true;
                         } else {
                             new_field[in][jn] = x;
+                            this->append(new_field);
+                            return true;
                         }
-                        this->append(new_field);
-                        return true;
+
                     }
                 }
+                return false;
+            }else{
+                return false;
             }
             break;
         case X:
@@ -432,30 +446,6 @@ void Player::move(){
                 }
                 i++;
             }
-            /*for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (pimpl->tail->board[i][j] == x) {
-                        if(j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)!= nullptr) {
-                            //todo:trovare maniera di return array 2d
-                            **new_board = pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
-                            moved = true;
-                        }else{
- *                          if(pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
-
-                            }
-                        }
-                    } else {
-                        if (pimpl->tail->board[i][j] == X) {
-
-                            pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
-                            pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1);
-                            pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j + 1);
-                            pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j - 1);
-
-                        }
-                    }
-                }
-            }*/
         }else{
             if(pimpl->player_nr ==2){
                 while(moved == false) {
