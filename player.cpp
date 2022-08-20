@@ -331,30 +331,59 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
 
     switch (field[i][j]) {
         case x:
-            if(i<=5){
-                if(j<=5){
-                    if(jn==j+1 && field[in][jn]==o && field[in+1][jn+1] ==e){
+            if(i<=6) {
+                if (i <= 5) {
+                    if (jn==j+1) {
+                        if (j<=5 && field[in][jn] == o && field[in + 1][jn + 1] == e) {
+                            new_field[i][j] = e;
+                            new_field[in][jn] = e;
+                            if (in + 1 == 7) {
+                                new_field[in + 1][jn + 1] = X;
+                            } else {
+                                new_field[in + 1][jn + 1] = x;
+                            }
+                            this->append(new_field);
+                            return true;
+                        }
+
+                    }
+                    if (jn==j-1) {
+                        if (j>=2 && field[in][jn] == o && field[in + 1][jn - 1] == e) {
+                            new_field[i][j] = e;
+                            new_field[in][jn] = e;
+                            if (in + 1 == 7) {
+                                new_field[in + 1][jn - 1] = X;
+
+                            } else {
+                                new_field[in + 1][jn - 1] = x;
+                            }
+                            this->append(new_field);
+                            return true;
+                        }
+                    }
+                }
+                if(jn == j+1){
+                    if( j<=6 && field[in][jn] ==e){
                         new_field[i][j]=e;
-                        new_field[in][jn]=e;
-                        if(in+1==7){
-                            new_field[in+1][jn+1]=X;
-                        }else{
-                            new_field[in+1][jn+1]=x;
+                        if (in == 7) {
+                            new_field[in][jn] = X;
+
+                        } else {
+                            new_field[in][jn] = x;
                         }
                         this->append(new_field);
                         return true;
+
                     }
-
                 }
-                if(j>=2){
-                    if(jn == j-1 &&field[in][jn]==o && field[in+1][jn-1]==e){
-                        new_field[i][j] = e;
-                        new_field[in][jn]=e;
-                        if(in+1==7){
-                            new_field[in+1][jn-1]=X;
+                if(jn == j-1){
+                    if(j>=1 && field[in][jn] == e){
+                        new_field[i][j]=e;
+                        if (in == 7) {
+                            new_field[in][jn] = X;
 
-                        }else{
-                            new_field[in+1][jn-1]=x;
+                        } else {
+                            new_field[in][jn] = x;
                         }
                         this->append(new_field);
                         return true;
