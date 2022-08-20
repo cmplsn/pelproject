@@ -329,42 +329,47 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
         }
     }
 
-    if(field[i][j] == x){
-        if(in == 7){
-            if(field[in][jn]==e){
-                new_field[i][j]=e;
-                new_field[in][jn]= X;
-                this->append(new_field);
-                return true;
-            }
-        }else{
-            // PEDINA x MANGIA:
-            if(i<=5 && jn == j+1){
-                if(j<=5 && field[i+1][j+1]==o && field[i+2][j+2]==o){
-
-                    new_field[i][j] = e;
-                    new_field[i+1][j+1]=o;
-
-                    if(i+2 == 7){   //x mangia e pedina diventa dama
-                        new_field[i+2][j+2]= X;
-                    }else{
-                        new_field[i+2][j+2]= x;
+    switch (field[i][j]) {
+        case x:
+            if(i<=5){
+                if(j<=5){
+                    if(jn==j+1 && field[in][jn]==o && field[in+1][jn+1] ==e){
+                        new_field[i][j]=e;
+                        new_field[in][jn]=e;
+                        if(in+1==7){
+                            new_field[in+1][jn+1]=X;
+                        }else{
+                            new_field[in+1][jn+1]=x;
+                        }
+                        this->append(new_field);
+                        return true;
                     }
-                    this->append(new_field);
+
+                }
+                if(j>=2){
+                    if(jn == j-1 &&field[in][jn]==o && field[in+1][jn-1]==e){
+                        new_field[i][j] = e;
+                        new_field[in][jn]=e;
+                        if(in+1==7){
+                            new_field[in+1][jn-1]=X;
+
+                        }else{
+                            new_field[in+1][jn-1]=x;
+                        }
+                        this->append(new_field);
+                        return true;
+                    }
                 }
             }
-
-
-            /*if(field[in][jn]==e){
-                new_field[i][j]=e;
-                new_field[in][jn]=x;
-            }else{
-                if()
-                return false;
-            }*/
-        }
-        this->append(new_field);
-        return true;
+            break;
+        case X:
+            break;
+        case o:
+            break;
+        case O:
+            break;
+        case e:
+            break;
     }
 }
 
