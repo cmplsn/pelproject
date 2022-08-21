@@ -331,12 +331,12 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
 
     switch (field[i][j]) {
         case x:
-            if(i<=6){
-                if(jn=j+1){
-                    if(i<=5&&j<=5){//todo:x mangia verso l'alto verso dx
-                        if(field[in][jn] == o && field[in+1][jn+1]==e){
-                            new_field[i][j]=e;
-                            new_field[in][jn] =e;
+            if(i<=6) {
+                if (jn == j + 1) {
+                    if (i <= 5 && j <= 5) {//todo:x mangia verso l'alto verso dx
+                        if (field[in][jn] == o && field[in + 1][jn + 1] == e) {
+                            new_field[i][j] = e;
+                            new_field[in][jn] = e;
                             if (in + 1 == 7) {
                                 new_field[in + 1][jn + 1] = X;
                                 this->append(new_field);
@@ -348,13 +348,12 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             }
                         }
                     }
-                    if( j<=6 && field[in][jn] ==e){ //todo: x muove verso alto verso dx
-                        new_field[i][j]=e;
+                    if ( j<=6 && field[in][jn] == e) { //todo: x muove verso alto verso dx
+                        new_field[i][j] = e;
                         if (in == 7) {
                             new_field[in][jn] = X;
                             this->append(new_field);
                             return true;
-
                         } else {
                             new_field[in][jn] = x;
                             this->append(new_field);
@@ -362,8 +361,8 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                         }
                     }
                     return false;
-                }else{
-                    if(jn==j-1){
+                } else {
+                    if (jn == j - 1) {
                         if (i >= 5 && j >= 2) {//todo: x mangia verso alto sx
                             if (field[in][jn] == o && field[in + 1][jn - 1] == e) {
                                 new_field[i][j] = e;
@@ -372,7 +371,6 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                                     new_field[in + 1][jn - 1] = X;
                                     this->append(new_field);
                                     return true;
-
                                 } else {
                                     new_field[in + 1][jn - 1] = x;
                                     this->append(new_field);
@@ -395,153 +393,100 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                         return false;
                     }
                 }
-            }else{
-                return false;
-            }
-            /*if(jn == j+1){
-                if(i<=5&&j<=5){//todo:x mangia verso l'alto verso dx
-                    if(field[in][jn] == o && field[in+1][jn+1]==e){
-                        new_field[i][j]=e;
-                        new_field[in][jn] =e;
-                        if (in + 1 == 7) {
-                            new_field[in + 1][jn + 1] = X;
-                            this->append(new_field);
-                            return true;
-                        } else {
-                            new_field[in + 1][jn + 1] = x;
-                            this->append(new_field);
-                            return true;
-                        }
-                    }
-                }
-                if( j<=6 && field[in][jn] ==e){ //todo: x muove verso alto verso dx
-                    new_field[i][j]=e;
-                    if (in == 7) {
-                        new_field[in][jn] = X;
-                        this->append(new_field);
-                        return true;
-
-                    } else {
-                        new_field[in][jn] = x;
-                        this->append(new_field);
-                        return true;
-                    }
-                }
-                return false;
-            }else {
-                if (jn == j - 1) {
-                    if (i >= 5 && j >= 2) {//todo: x mangia verso alto sx
-                        if (field[in][jn] == o && field[in + 1][jn - 1] == e) {
-                            new_field[i][j] = e;
-                            new_field[in][jn] = e;
-                            if (in + 1 == 7) {
-                                new_field[in + 1][jn - 1] = X;
-                                this->append(new_field);
-                                return true;
-
-                            } else {
-                                new_field[in + 1][jn - 1] = x;
-                                this->append(new_field);
-                                return true;
-                            }
-                        }
-                    }
-                    if (j >= 1 && field[in][jn] == e) {
-                        new_field[i][j] = e;
-                        if (in == 7) {
-                            new_field[in][jn] = X;
-                            this->append(new_field);
-                            return true;
-                        } else {
-                            new_field[in][jn] = x;
-                            this->append(new_field);
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            }
-            if(i<=6) { FATTO
-                if (i <= 5) { FATTO
-                    if (jn==j+1) { FATTO
-                        if (j<=5 && field[in][jn] == o && field[in + 1][jn + 1] == e) { FATTO
-                            new_field[i][j] = e;
-                            new_field[in][jn] = e;
-                            if (in + 1 == 7) {
-                                new_field[in + 1][jn + 1] = X;
-                                this->append(new_field);
-                                return true;
-                            } else {
-                                new_field[in + 1][jn + 1] = x;
-                                this->append(new_field);
-                                return true;
-                            }
-
-                        }
-
-                    }
-                    if (jn==j-1) {
-                        if (j>=2 && field[in][jn] == o && field[in + 1][jn - 1] == e) {
-                            new_field[i][j] = e;
-                            new_field[in][jn] = e;
-                            if (in + 1 == 7) {
-                                new_field[in + 1][jn - 1] = X;
-                                this->append(new_field);
-                                return true;
-
-                            } else {
-                                new_field[in + 1][jn - 1] = x;
-                                this->append(new_field);
-                                return true;
-                            }
-
-                        }
-                    }
-                }
-                if(jn == j+1){
-                    if( j<=6 && field[in][jn] ==e){
-                        new_field[i][j]=e;
-                        if (in == 7) {
-                            new_field[in][jn] = X;
-                            this->append(new_field);
-                            return true;
-
-                        } else {
-                            new_field[in][jn] = x;
-                            this->append(new_field);
-                            return true;
-                        }
-
-
-                    }
-                }
-                if(jn == j-1){
-                    if(j>=1 && field[in][jn] == e){
-                        new_field[i][j]=e;
-                        if (in == 7) {
-                            new_field[in][jn] = X;
-                            this->append(new_field);
-                            return true;
-                        } else {
-                            new_field[in][jn] = x;
-                            this->append(new_field);
-                            return true;
-                        }
-
-                    }
-                }
                 return false;
             }else{
                 return false;
-            }*/
+            }
             break;
         case X:
-            if(i>=1){
-                if(i>=2){
+            if(in == i-1){
+                if(i>=1){
+                    if(jn == j+1){
+                        if(i>=2 && j<=5){//todo: mangia verso basso DX
+                            if((field[in][jn]== o || field[in][jn]== O)&& field[in -1][jn+1]==e){
+                                new_field[i][j]=e;
+                                new_field[in][jn]=e;
+                                new_field[in-1][jn+1]=X;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                        if(j<=6 && field[in][jn]==e){//todo: muove verso basso DX
+                            new_field[i][j]=e;
+                            new_field[in][jn]=X;
+                            this->append(new_field);
+                            return true;
+                        }
+                    }else{
+                        if(jn==j-1){
+                            if(i>=2 && j>=2){//todo: mangia verso basso SX
+                                if((field[in][jn]==o||field[in][jn]==O)&& field[in-1][jn-1]==e){
+                                    new_field[i][j]=e;
+                                    new_field[in][jn]=e;
+                                    new_field[in-1][jn-1]=X;
+                                    this->append(new_field);
+                                    return true;
+                                }
 
+                            }
+                        }
+                    }
+                }
+
+            }else{
+                if(in == i+i){
+                    if(i<=6){
+
+                    }
+                }
+            }
+            /*if(i>=1){
+                if(in == i-1) {
+                    if (jn == j + 1) {
+                        if (i >= 2 && j <= 5) {//mangia verso il basso verso DX
+                            if((field[in][jn]==o||field[in][jn]==O) && field[in-1][jn+1]==e){
+                                new_field[i][j]=e;
+                                new_field[in][jn]=e;
+                                new_field[in-1][jn+1]=X;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                        if(j<=6 && field[in][jn]==e){//muove verso il basso a DX
+                            new_field[i][j]=e;
+                            new_field[in][jn]=X;
+                            this->append(new_field);
+                            return true;
+                        }
+                    } else {
+                        if (jn == j - 1) {
+                            if (i >= 2 && j >= 2) {// mangia verso il basso a SX
+                                if((field[in][jn]==o || field[in][jn]==O) && field[in-1][jn-1]==e){
+                                    new_field[i][j]=e;
+                                    new_field[in][jn]=e;
+                                    new_field[in-1][jn-1]=X;
+                                    this->append(new_field);
+                                    return true;
+                                }
+                            }
+                            if(j>=1 && field[in][jn]==e){// muove verso il basso a SX
+                                new_field[i][j]= e;
+                                new_field[in][jn]=X;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                    }
+                }else{
+                    if(in == i+1){
+
+                    }
                 }
 
             }
+            if(i<=6){
+
+            }*/
             break;
         case o:
             break;
@@ -564,7 +509,7 @@ void Player::move(){
             while(i <8 && !moved){
                 int j= 0;
                 while(j<8 && !moved){
-                    if(pimpl->tail->board[i][j]==x){
+                    if( i<=6 && pimpl->tail->board[i][j]==x){
                         if(j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
                             moved = true;
                         }else{
@@ -575,6 +520,14 @@ void Player::move(){
                         }
                     }else{
                         if(pimpl->tail->board[i][j] == X){
+                            if(i>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j+1)){
+                                moved=true;
+                            }else{
+                                if(i>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j-1 )){
+                                    moved =true;
+                                }
+                            }
+
 
                         }
                     }
@@ -583,7 +536,7 @@ void Player::move(){
                 i++;
             }
         }else{
-            if(pimpl->player_nr ==2){
+            if(pimpl->player_nr ==2){//todo: mettere cicli while al posto dei cicli for e mettere firma funzione in condizioni if
                 while(moved == false) {
                     for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < 8; j++) {

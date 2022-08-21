@@ -10,8 +10,12 @@ int main() {
     a.move();
     a.move();
     a.move();
-    a.store_board("../boards/board_3.txt",0);
-    a.store_board("../boards/board_2.txt",1);
-    a.store_board("../boards/board_1.txt",2);
+    a.move();
+    a.move();
+    a.store_board("../boards/board_5.txt",0);
+    a.store_board("../boards/board_4.txt",1);
+    a.store_board("../boards/board_3.txt",2);
+    a.store_board("../boards/board_2.txt",3);
+    a.store_board("../boards/board_1.txt",4);
     return 0;
 }
