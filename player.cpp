@@ -331,10 +331,140 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
 
     switch (field[i][j]) {
         case x:
-            if(i<=6) {
-                if (i <= 5) {
-                    if (jn==j+1) {
-                        if (j<=5 && field[in][jn] == o && field[in + 1][jn + 1] == e) {
+            if(i<=6){
+                if(jn=j+1){
+                    if(i<=5&&j<=5){//todo:x mangia verso l'alto verso dx
+                        if(field[in][jn] == o && field[in+1][jn+1]==e){
+                            new_field[i][j]=e;
+                            new_field[in][jn] =e;
+                            if (in + 1 == 7) {
+                                new_field[in + 1][jn + 1] = X;
+                                this->append(new_field);
+                                return true;
+                            } else {
+                                new_field[in + 1][jn + 1] = x;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                    }
+                    if( j<=6 && field[in][jn] ==e){ //todo: x muove verso alto verso dx
+                        new_field[i][j]=e;
+                        if (in == 7) {
+                            new_field[in][jn] = X;
+                            this->append(new_field);
+                            return true;
+
+                        } else {
+                            new_field[in][jn] = x;
+                            this->append(new_field);
+                            return true;
+                        }
+                    }
+                    return false;
+                }else{
+                    if(jn==j-1){
+                        if (i >= 5 && j >= 2) {//todo: x mangia verso alto sx
+                            if (field[in][jn] == o && field[in + 1][jn - 1] == e) {
+                                new_field[i][j] = e;
+                                new_field[in][jn] = e;
+                                if (in + 1 == 7) {
+                                    new_field[in + 1][jn - 1] = X;
+                                    this->append(new_field);
+                                    return true;
+
+                                } else {
+                                    new_field[in + 1][jn - 1] = x;
+                                    this->append(new_field);
+                                    return true;
+                                }
+                            }
+                        }
+                        if (j >= 1 && field[in][jn] == e) {
+                            new_field[i][j] = e;
+                            if (in == 7) {
+                                new_field[in][jn] = X;
+                                this->append(new_field);
+                                return true;
+                            } else {
+                                new_field[in][jn] = x;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }else{
+                return false;
+            }
+            /*if(jn == j+1){
+                if(i<=5&&j<=5){//todo:x mangia verso l'alto verso dx
+                    if(field[in][jn] == o && field[in+1][jn+1]==e){
+                        new_field[i][j]=e;
+                        new_field[in][jn] =e;
+                        if (in + 1 == 7) {
+                            new_field[in + 1][jn + 1] = X;
+                            this->append(new_field);
+                            return true;
+                        } else {
+                            new_field[in + 1][jn + 1] = x;
+                            this->append(new_field);
+                            return true;
+                        }
+                    }
+                }
+                if( j<=6 && field[in][jn] ==e){ //todo: x muove verso alto verso dx
+                    new_field[i][j]=e;
+                    if (in == 7) {
+                        new_field[in][jn] = X;
+                        this->append(new_field);
+                        return true;
+
+                    } else {
+                        new_field[in][jn] = x;
+                        this->append(new_field);
+                        return true;
+                    }
+                }
+                return false;
+            }else {
+                if (jn == j - 1) {
+                    if (i >= 5 && j >= 2) {//todo: x mangia verso alto sx
+                        if (field[in][jn] == o && field[in + 1][jn - 1] == e) {
+                            new_field[i][j] = e;
+                            new_field[in][jn] = e;
+                            if (in + 1 == 7) {
+                                new_field[in + 1][jn - 1] = X;
+                                this->append(new_field);
+                                return true;
+
+                            } else {
+                                new_field[in + 1][jn - 1] = x;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                    }
+                    if (j >= 1 && field[in][jn] == e) {
+                        new_field[i][j] = e;
+                        if (in == 7) {
+                            new_field[in][jn] = X;
+                            this->append(new_field);
+                            return true;
+                        } else {
+                            new_field[in][jn] = x;
+                            this->append(new_field);
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+            if(i<=6) { FATTO
+                if (i <= 5) { FATTO
+                    if (jn==j+1) { FATTO
+                        if (j<=5 && field[in][jn] == o && field[in + 1][jn + 1] == e) { FATTO
                             new_field[i][j] = e;
                             new_field[in][jn] = e;
                             if (in + 1 == 7) {
@@ -403,9 +533,15 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                 return false;
             }else{
                 return false;
-            }
+            }*/
             break;
         case X:
+            if(i>=1){
+                if(i>=2){
+
+                }
+
+            }
             break;
         case o:
             break;
