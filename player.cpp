@@ -389,21 +389,23 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                                 this->append(new_field);
                                 return true;
                             }
+                        }else{
+                            return false;
                         }
+                    }else{
                         return false;
                     }
                 }
-                return false;
             }else{
                 return false;
             }
             break;
         case X:
-            if(in == i-1){
-                if(i>=1){
-                    if(jn == j+1){
-                        if(i>=2 && j<=5){//todo: mangia verso basso DX
-                            if((field[in][jn]== o || field[in][jn]== O)&& field[in -1][jn+1]==e){
+            if(in == i-1){//todo: direzione GIÙ
+                if(jn==j+1){//todo:direzione DX
+                    if(i>=1){
+                        if(i>=2 && j<=5){//todo: mangia GIU DX
+                            if((field[in][jn]==o||field[in][jn]==O)&& field[in-1][jn+1]==e){
                                 new_field[i][j]=e;
                                 new_field[in][jn]=e;
                                 new_field[in-1][jn+1]=X;
@@ -411,15 +413,21 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                                 return true;
                             }
                         }
-                        if(j<=6 && field[in][jn]==e){//todo: muove verso basso DX
+                        if(j<=6 && field[in][jn]==e){//todo: muove GIU DX
                             new_field[i][j]=e;
                             new_field[in][jn]=X;
                             this->append(new_field);
                             return true;
                         }
+
                     }else{
-                        if(jn==j-1){
-                            if(i>=2 && j>=2){//todo: mangia verso basso SX
+                        return false;
+                    }
+
+                }else{
+                    if(jn==j-1){//todo: direzione SX
+                        if(i>=1){
+                            if(i>=2 && j>=2){//todo:Mangia GIU SX
                                 if((field[in][jn]==o||field[in][jn]==O)&& field[in-1][jn-1]==e){
                                     new_field[i][j]=e;
                                     new_field[in][jn]=e;
@@ -427,68 +435,82 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                                     this->append(new_field);
                                     return true;
                                 }
-
                             }
-                        }
-                    }
-                }
-
-            }else{
-                if(in == i+i){
-                    if(i<=6){
-
-                    }
-                }
-            }
-            /*if(i>=1){
-                if(in == i-1) {
-                    if (jn == j + 1) {
-                        if (i >= 2 && j <= 5) {//mangia verso il basso verso DX
-                            if((field[in][jn]==o||field[in][jn]==O) && field[in-1][jn+1]==e){
+                            if(j>=1&&field[in][jn]==e){//todo:movimento GIU SX
                                 new_field[i][j]=e;
-                                new_field[in][jn]=e;
-                                new_field[in-1][jn+1]=X;
+                                new_field[in][jn]=X;
                                 this->append(new_field);
                                 return true;
+                            }else{
+                                return false;
                             }
+                        }else{
+                            return false;
                         }
-                        if(j<=6 && field[in][jn]==e){//muove verso il basso a DX
-                            new_field[i][j]=e;
-                            new_field[in][jn]=X;
-                            this->append(new_field);
-                            return true;
-                        }
-                    } else {
-                        if (jn == j - 1) {
-                            if (i >= 2 && j >= 2) {// mangia verso il basso a SX
-                                if((field[in][jn]==o || field[in][jn]==O) && field[in-1][jn-1]==e){
+
+                    }
+                }
+            }else{
+                if(in == i+1){//todo: direzione verso SU
+                    if(jn==j+1){//todo:direzione verso DX
+                        if(i<=6){
+                            if(i<=5 &&j<=5){//todo: mangia SU DX
+                                if((field[in][jn]==o || field[in][jn]==O)&&field[in+1][jn+1]==e){
                                     new_field[i][j]=e;
                                     new_field[in][jn]=e;
-                                    new_field[in-1][jn-1]=X;
+                                    new_field[in+1][jn+1]=X;
                                     this->append(new_field);
                                     return true;
                                 }
                             }
-                            if(j>=1 && field[in][jn]==e){// muove verso il basso a SX
-                                new_field[i][j]= e;
+                            if(j<=6 &&field[in][jn]==e){//todo:muove SU DX
                                 new_field[in][jn]=X;
+                                new_field[i][j]=e;
                                 this->append(new_field);
                                 return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        if(jn ==j-1){//todo:direzione verso SX
+                            if(i<=6){
+                                if(i<=5 && j>=2){//todo: mangia SU SX
+                                    if((field[in][jn]==O||field[in][jn]==o) && field[in+1][jn-1]==e){
+                                        new_field[i][j]=e;
+                                        new_field[in][jn]=e;
+                                        new_field[in+1][jn-1]=X;
+                                        this->append(new_field);
+                                        return true;
+                                    }
+                                }
+                                if(j>=1&&field[in][jn]==e){//todo:muove SU SX
+                                    new_field[i][j]=e;
+                                    new_field[in][jn]=X;
+                                    this->append(new_field);
+                                    return true;
+                                }else{
+                                    return false;
+                                }
+                            }else{
+                                return false;
                             }
                         }
                     }
+
                 }else{
-                    if(in == i+1){
-
-                    }
+                    return false;
                 }
-
             }
-            if(i<=6){
-
-            }*/
             break;
         case o:
+            if(i>=1){
+
+            }else{
+                return false;
+            }
             break;
         case O:
             break;
