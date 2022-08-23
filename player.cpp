@@ -578,22 +578,108 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
             }
             break;
         case O:
-            if(in==i+1){
-                if(jn==j+1){
+            if(in==i+1){//todo:direzione SU
+                if(jn==j+1){//todo:direzione DX
+                    if(i<=6){
+                        if(i<=5 && j<=5){//todo: mangia SU DX
+                            if((field[in][jn]==x||field[in][jn]==X) && field[in+1][jn+1]==e){
+                                new_field[i][j]=e;
+                                new_field[in][jn]=e;
+                                new_field[in+1][jn+1]=O;
+                                this->append(new_field);
+                                return true;
+                            }
+                        }
+                        if(j<=6 && field[in][jn]==e){//todo: muove SU DX
+                            new_field[i][j]=e;
+                            new_field[in][jn]=O;
+                            this->append(new_field);
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
 
                 }else{
-                    if(jn==j-1){
+                    if(jn==j-1){//todo: direzione SX
+                        if(i<=6){
+                            if(i<=5&& j>=2){
+                                if((field[in][jn]==X||field[in][jn]==x) && field[in+1][jn-1]==e){
+                                    new_field[i][j]=e;
+                                    new_field[in][jn]=e;
+                                    new_field[in+1][jn-1]=O;
+                                    this->append(new_field);
+                                    return true;
+                                }
+                            }
+                            if(j>=1 && field[in][jn]==e){
+                                new_field[i][j]=e;
+                                new_field[in][jn]=O;
+                                this->append(new_field);
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return false;
+                        }
 
                     }
                 }
 
             }else{
-                if(in==i-1){
-
+                if(in==i-1){//todo: direzione GIU
+                    if(jn == j+1){//todo: direzione DX
+                        if(i>=1){
+                            if(i>=2 && j<=5){//todo:mangia GIU DX
+                                if((field[in][jn]==x||field[in][jn]==X) && field[in-1][jn+1]==e){
+                                    new_field[i][j]=e;
+                                    new_field[in][jn]=e;
+                                    new_field[in-1][jn+1]=O;
+                                    this->append(new_field);
+                                    return true;
+                                }
+                            }
+                            if(j<=6 && field[in][jn]==e){//todo:muove GIU DX
+                                new_field[i][j]=e;
+                                new_field[in][jn]=O;
+                                this->append(new_field);
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        if(jn == j-1){
+                            if(i>=1){
+                                if(i>=2 && j>=2){
+                                    if((field[in][jn]==X || field[in][jn]==x) && field[in-1][jn-1]==e){
+                                        new_field[i][j]=e;
+                                        new_field[in][jn]=e;
+                                        new_field[in-1][jn-1]=O;
+                                        this->append(new_field);
+                                        return true;
+                                    }
+                                }
+                                if(j>=1 && field[in][jn]==e){
+                                    new_field[i][j]=e;
+                                    new_field[in][jn]=O;
+                                    this->append(new_field);
+                                    return true;
+                                }else{
+                                    return false;
+                                }
+                            }else{
+                                return false;
+                            }
+                        }
+                    }
+                }else{
+                    return false;
                 }
             }
-            break;
-        case e:
             break;
     }
 }
