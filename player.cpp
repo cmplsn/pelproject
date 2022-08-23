@@ -682,6 +682,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
             }
             break;
     }
+    return false;
 }
 
 void Player::move(){
@@ -696,22 +697,29 @@ void Player::move(){
             while(i <8 && !moved){
                 int j= 0;
                 while(j<8 && !moved){
-                    if( i<=6 && pimpl->tail->board[i][j]==x){
-                        if(j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
+                    if(pimpl->tail->board[i][j]==x){
+                        if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
                             moved = true;
                         }else{
-                            if(j>=1 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
+                            if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
                                 moved = true;
-
                             }
                         }
                     }else{
                         if(pimpl->tail->board[i][j] == X){
-                            if(i>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j+1)){
+                            if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j+1)){
                                 moved=true;
                             }else{
-                                if(i>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j-1 )){
+                                if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j-1 )){
                                     moved =true;
+                                }else{
+                                    if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j,i+1,j+1)){
+                                        moved = true;
+                                    }else{
+                                        if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i+1,j-1) ){
+                                            moved = true;
+                                        }
+                                    }
                                 }
                             }
 
@@ -723,25 +731,54 @@ void Player::move(){
                 i++;
             }
         }else{
-            if(pimpl->player_nr ==2){//todo: mettere cicli while al posto dei cicli for e mettere firma funzione in condizioni if
-                while(moved == false) {
-                    for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            if (pimpl->tail->board[i][j] == o) {
-                                pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
-                                pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1);
-                            } else {
-                                if (pimpl->tail->board[i][j] == O) {
-                                    pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1);
-                                    pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1);
-                                    pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j + 1);
-                                    pimpl->possible_move(pimpl->tail->board, i, j, i - 1, j - 1);
+            if(pimpl->player_nr ==2){
+                int i = 0;
+                while(i<8 && !moved){
+                    int j=0;
+                    while(j<8 && !moved){
+                        if(pimpl->tail->board[i][j]==o){
+                            if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
+                                moved = true;
+                            }else{
+                                if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j-1)){
+                                    moved = true;
                                 }
                             }
+
+                        }else{
+                            if(pimpl->tail->board[i][j] == O){
+                                if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j+1)){
+                                    moved=true;
+                                }else{
+                                    if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j-1)){
+                                        moved = true;
+                                    }else{
+                                        if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
+                                            moved = true;
+                                        }else{
+                                            if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j-1)){
+                                                moved = true;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
                         }
+                        j++;
                     }
+                    i++;
                 }
             }
+        }
+        if(!moved){
+            Player::piece same_b[8][8];
+            for(int m = 0; m<8; m++){
+                for(int n = 0; n<8; n++){
+                    same_b[m][n]=pimpl->tail->board[m][n];
+                }
+            }
+            this->pimpl->append(same_b);
         }
     }
 
