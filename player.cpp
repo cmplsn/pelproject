@@ -36,7 +36,7 @@ List Player::Impl::copy(List &dest, List source) {
     }
     return dest;
 
-}//add to copy constructor
+}
 
 void Player::Impl::destroy(List& x) {
     if (x){
@@ -44,7 +44,7 @@ void Player::Impl::destroy(List& x) {
         delete x;
 
     }
-} // Function to destroy History. add to Class Destructor
+}
 
 void Player::Impl::append(Player::piece y[8][8]) {
     if(history == nullptr){
@@ -227,8 +227,7 @@ void Player::init_board(const string &filename) const {
         if(i!=0){
             myfile<<endl;}
     }
-} // funzionante NO APPEND a History
-//todo: inserire stringhe direttamente in txt o fare passaggio array -> txt??
+}
 
 void Player::store_board(const string &filename, int history_offset) const {
     ofstream myfile(filename);
@@ -302,24 +301,30 @@ void Player::load_board(const string &filename) {
 //todo: controllare tutti casi errore file.eof file.good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
-    int count = 0;
-    for(int i = 0; i < 8; i++){
-        for(int j = 0; j <8; j++){
-            if(last[i][j]==previous[i][j]){
-                /*cout<<"riga:"<<i<<" colonna:"<<j<<endl;
-                 *cout<<"previousboard:"<<enum_to_char(previous[i][j])<<endl;
-                 *cout<<"lastcell:"<<enum_to_char(last[i][j])<<endl;*/
-                count ++;
+    if(this->tail->prev !=nullptr){
+        int count = 0;
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j <8; j++){
+                if(last[i][j]==previous[i][j]){
+                    /*cout<<"riga:"<<i<<" colonna:"<<j<<endl;
+                     *cout<<"previousboard:"<<enum_to_char(previous[i][j])<<endl;
+                     *cout<<"lastcell:"<<enum_to_char(last[i][j])<<endl;*/
+                    count ++;
+                }
             }
         }
-    }
-    if(count == 64){
-        return true;
+        if(count == 64){
+            return true;
+        }else{
+            return false;
+        }
     }else{
-        return false;
+
     }
+
 }
-//todo: completare in caso history contenga meno di 2 boards
+//toDO:COMPLETARE
+//TODO:completare in caso history contenga meno di 2 boards
 
 bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
     Player::piece new_field[8][8];
@@ -833,7 +838,7 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
 }
 
 
-/*bool Player::valid_move() const {
+bool Player::valid_move() const {
     Player::piece last [8][8];
     Player::piece previous[8][8];
     for(int i = 0; i < 8; i++){
@@ -880,15 +885,13 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
     }
     return true;
 
-}*/
+}//todo: COMPLETARE, DEVE RICONOSCERE TUTTE LE MOSSE
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "can't pop from empty history"};
     }else{
         List pc = pimpl->tail;
-
-
         if(this->pimpl->tail->prev ==nullptr){
             this->pimpl->tail =nullptr;
             this->pimpl->history = nullptr;
@@ -902,7 +905,7 @@ void Player::pop() {
 
 }   //FATTO
 
-/*bool Player::wins(int player_nr) const {
+bool Player::wins(int player_nr) const {
     bool win = true;
     if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
         win = false;
@@ -912,7 +915,7 @@ void Player::pop() {
 
 bool Player::wins() const {
 
-}
+}//TODO:COMPLETARE
 
 bool Player::loses(int player_nr) const {
     if(this->pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)){
@@ -920,11 +923,11 @@ bool Player::loses(int player_nr) const {
     }else{
         return false;
     }
-}
+}//TODO:COMPLETARE
 
 bool Player::loses() const {
 
-}*/
+}//TODO:COMPLEATARE
 
 int Player::recurrence() const {
     List pc = this->pimpl->tail;
