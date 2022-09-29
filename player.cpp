@@ -326,7 +326,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 //toDO:COMPLETARE
 //TODO:completare in caso history contenga meno di 2 boards
 
-bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
+/*bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
     Player::piece new_field[8][8];
     for(int m = 0; m <8; m++){
         for(int n = 0; n<8; n++){
@@ -688,9 +688,9 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
             break;
     }
     return false;
-}
+}*///todo: possible MOVE COMPLETARE
 
-void Player::move(){
+/*void Player::move(){
     bool moved = false;
     if(this->pimpl->history == nullptr){
 
@@ -787,7 +787,7 @@ void Player::move(){
         }
     }
 
-}//todo: COMPLETARE
+}*///todo: MOVE COMPLETARE
 
 bool Player::Impl::valid_board(Player::piece y[8][8]) {
     int count_x = 0;
