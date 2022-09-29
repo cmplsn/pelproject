@@ -21,6 +21,7 @@ struct Player::Impl{
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
     bool possible_move (Player::piece source[8][8], int i, int j, int in, int jn);
+    bool try_move(Player::piece source[8][8],int updown, int lr);
 
 };
 
