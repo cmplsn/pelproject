@@ -20,8 +20,7 @@ struct Player::Impl{
     List copy(List& dest, List source);
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
-    bool possible_move (Player::piece source[8][8], int i, int j, int in, int jn);
-    bool try_move(Player::piece source[8][8],int updown, int lr);
+    bool possible_move (Player::piece field[8][8], int i, int j, int in, int jn);
 
 };
 
@@ -71,7 +70,7 @@ void Player::Impl::append(Player::piece y[8][8]) {
 
     }
 
-} //FUNZIONA
+} //OK
 
 Player::~Player() {
     this->pimpl->destroy(this->pimpl->history);
@@ -112,7 +111,7 @@ Player& Player::operator=(const Player &x) {
 
 return *this;
 
-} //TODO: TEST FUNZ
+} //TODO: TEST
 
 char enum_to_char(Player::piece a){
     switch (a) {
@@ -169,7 +168,7 @@ Player::piece Player::operator()(int r, int c, int history_offset) const {
     }
 
 }//valore di ritorno == numero corrispondente a enum
-//FATTO //TODO: TEST FUNZ
+//FATTO //TODO: TEST
 
 void Player::init_board(const string &filename) const {
     ofstream myfile(filename);
@@ -260,7 +259,7 @@ void Player::store_board(const string &filename, int history_offset) const {
         }
     }
 } //da history a file.txt
-//todo:controllare tutti casi errore eof,good ecc
+//todo:CHECK ALL ERROR CASE eof,good ecc
 
 void Player::load_board(const string &filename) {
     string name = filename;
@@ -299,7 +298,7 @@ void Player::load_board(const string &filename) {
     }
 
 }//da file.txt a history
-//todo: controllare tutti casi errore file.eof file.good ecc
+//todo: CHECK ALL ERROR CASE eof, good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
     if(this->tail->prev !=nullptr){
@@ -424,9 +423,11 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             new_field[in][jn]=X;
                             this->append(new_field);
                             return true;
-                        }
+                        }else{
+                            return false;
+                        } //FATTO
 
-                    }else{
+                    }else{//else return false perchè per i== 0 non posso muovere verso giu
                         return false;
                     }
 
@@ -503,6 +504,8 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             }else{
                                 return false;
                             }
+                        }else{
+                            return false;
                         }
                     }
 
@@ -513,10 +516,11 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
             break;
         case o:
             if(i>=1){//todo:direzione GIU
-                if(jn==j+1){//todo: direzione SX
-                    if(i>=2 && j<=5){//todo:mangia giu SX
+                if(jn==j+1){//todo: direzione DX
+                    if(i>=2 && j<=5){//todo:mangia GIU DX
                         if(field[in][jn]==x && field[in-1][jn+1]==e){
                             new_field[i][j]=e;
+                            new_field[in][jn]=e;
                             if(in-1==0){
                                 new_field[in-1][jn+1]=O;
                                 this->append(new_field);
@@ -528,7 +532,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             }
                         }
                     }
-                    if(j>=6 && field[in][jn]==e){//todo: muove GIU SX
+                    if(j>=6 && field[in][jn]==e){//todo: muove GIU DX
                         new_field[i][j]=e;
                         if(in==0){
                             new_field[in][jn]=O;
@@ -543,8 +547,8 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                         return false;
                     }
                 }else{
-                    if(jn==j-1){//todo:direzione DX
-                        if(i>=2&&j>=2){
+                    if(jn==j-1){//todo:direzione SX
+                        if(i>=2&&j>=2){//todo: mangia GIU SX
                             if(field[in][jn]==x && field[in-1][jn-1]==e){
                                 new_field[i][j]=e;
                                 new_field[in][jn]=e;
@@ -559,7 +563,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                                 }
                             }
                         }
-                        if(j>=1&&field[in][jn]==e){
+                        if(j>=1&&field[in][jn]==e){//todo muove GIU SX
                             new_field[i][j]=e;
                             if(in==0){
                                 new_field[in][jn]=O;
@@ -604,7 +608,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                         }else{
                             return false;
                         }
-                    }
+                    }else{return false;}
 
                 }else{
                     if(jn==j-1){//todo: direzione SX
@@ -630,6 +634,8 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             return false;
                         }
 
+                    }else{
+                        return false;
                     }
                 }
 
@@ -680,7 +686,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             }else{
                                 return false;
                             }
-                        }
+                        }else{return false;}
                     }
                 }else{
                     return false;
@@ -689,7 +695,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
             break;
     }
     return false;
-}//todo: possible MOVE COMPLETARE
+}//todo: TEST
 
 void Player::move(){
     bool moved = false;
@@ -730,7 +736,7 @@ void Player::move(){
                             }
 
 
-                        }
+                        }//todo: DEVO COMPLETARE CON  EXCEPTION SE PEDINA NON è NE X ne x??
                     }
                  j++;
                 }
@@ -788,7 +794,7 @@ void Player::move(){
         }
     }
 
-}//todo: MOVE COMPLETARE
+}//todo: TEST
 
 bool Player::Impl::valid_board(Player::piece y[8][8]) {
     int count_x = 0;
@@ -836,8 +842,7 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
         return false;
     }
     return true;
-}
-
+} //OK
 
 bool Player::valid_move() const {
     Player::piece last [8][8];
