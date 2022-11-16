@@ -167,8 +167,7 @@ Player::piece Player::operator()(int r, int c, int history_offset) const {
         }
     }
 
-}//valore di ritorno == numero corrispondente a enum
-//FATTO //TODO: TEST
+}//TODO: TEST
 
 void Player::init_board(const string &filename) const {
     ofstream myfile(filename);
