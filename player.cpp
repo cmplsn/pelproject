@@ -37,7 +37,7 @@ List Player::Impl::copy(List &dest, List source) {
     }
     return dest;
 
-}
+}//TODO: TEST FUNZ
 
 void Player::Impl::destroy(List& x) {
     if (x){
@@ -45,7 +45,7 @@ void Player::Impl::destroy(List& x) {
         delete x;
 
     }
-}
+}//TODO: TEST FUNZ
 
 void Player::Impl::append(Player::piece y[8][8]) {
     if(history == nullptr){
@@ -76,13 +76,13 @@ void Player::Impl::append(Player::piece y[8][8]) {
 Player::~Player() {
     this->pimpl->destroy(this->pimpl->history);
     delete this->pimpl;
-}
+} //DISTRUTTORE OK
 
 Player::Player(const Player& x) {
     this-> pimpl =new Impl;
     this->pimpl->player_nr = x.pimpl->player_nr;
     this->pimpl->copy(this->pimpl->history, x.pimpl->history);
-}
+} //COPY CONSTRUCTOR OK
 
 Player::Player(int player_nr) {
     switch(player_nr){
@@ -97,7 +97,7 @@ Player::Player(int player_nr) {
             pimpl->player_nr = 2;
             break;
     }
-}
+} // DEFAULT CONSTRUCTOR OK
 
 Player& Player::operator=(const Player &x) {
     if(this != &x){
@@ -112,7 +112,7 @@ Player& Player::operator=(const Player &x) {
 
 return *this;
 
-}
+} //TODO: TEST FUNZ
 
 char enum_to_char(Player::piece a){
     switch (a) {
@@ -130,7 +130,7 @@ char enum_to_char(Player::piece a){
             return ' ';
     }
 
-}
+} //OK
 
 Player::piece char_to_enum(char x){
     switch (x) {
@@ -148,7 +148,7 @@ Player::piece char_to_enum(char x){
             return Player::piece::e;
     }
 
-}
+} //OK
 
 Player::piece Player::operator()(int r, int c, int history_offset) const {
     int cont = 0;
@@ -169,7 +169,7 @@ Player::piece Player::operator()(int r, int c, int history_offset) const {
     }
 
 }//valore di ritorno == numero corrispondente a enum
-//FATTO
+//FATTO //TODO: TEST FUNZ
 
 void Player::init_board(const string &filename) const {
     ofstream myfile(filename);
@@ -228,7 +228,7 @@ void Player::init_board(const string &filename) const {
         if(i!=0){
             myfile<<endl;}
     }
-}
+} //OK
 
 void Player::store_board(const string &filename, int history_offset) const {
     ofstream myfile(filename);
@@ -327,7 +327,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
 //toDO:COMPLETARE
 //TODO:completare in caso history contenga meno di 2 boards
 
-/*bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
+bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in, int jn) {
     Player::piece new_field[8][8];
     for(int m = 0; m <8; m++){
         for(int n = 0; n<8; n++){
@@ -689,7 +689,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
             break;
     }
     return false;
-}*///todo: possible MOVE COMPLETARE
+}//todo: possible MOVE COMPLETARE
 
 /*void Player::move(){
     bool moved = false;
