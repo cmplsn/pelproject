@@ -1,7 +1,7 @@
 //
 // Created by Alessandro on 29/09/22.
 //
-#include "player.cpp"
+/*#include "player.cpp"
 
 void Player::move() {
 
@@ -38,4 +38,4 @@ void Player::move() {
 
 bool Player::Impl::try_move(Player::piece (*source)[8], int updown, int lr) {
 
-}
+}*/
