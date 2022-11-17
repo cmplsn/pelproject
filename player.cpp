@@ -21,6 +21,7 @@ struct Player::Impl{
     bool matching_boards(Player::piece last[8][8], Player::piece previous[8][8]);
     bool valid_board(Player::piece y[8][8]);
     bool possible_move (Player::piece field[8][8], int i, int j, int in, int jn);
+    void pop();
 
 };
 
@@ -844,7 +845,23 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
 } //OK
 
 bool Player::valid_move() const {
+    Player::piece prev_b[8][8];
+    Player::piece last_b[8][8];
+    if(this->pimpl->tail->prev == nullptr){//una sola board in history
+        throw player_exception{player_exception::index_out_of_bounds,"no moves completed, only one board in history"};
+    }else{
+        if(pimpl->matching_boards(pimpl->tail->board,pimpl->tail->prev->board)){//ultime due board uguali. mossa non valida
+            return false;
+        }else{
+            for (int r = 0; r<8; r++){
+                for(int c = 0; c<8; c++){
+                    prev_b[r][c] = pimpl->tail->prev->board[r][c];
+                    last_b[r][c] = pimpl->tail->board[r][c];
+                }
+            }
+        }
 
+    }
 }
 
 /*bool Player::valid_move() const {
@@ -914,7 +931,23 @@ void Player::pop() {
 
 }   //FATTO
 
-bool Player::wins(int player_nr) const {
+void Player::Impl::pop() {//todo: CONTROLLARE SE E' GIUSTA
+    if(this->history ==nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "can't pop from empty history"};
+    }else{
+        List pc =this->tail;
+        if(this->tail->prev ==nullptr){
+            this->tail =nullptr;
+            this->history = nullptr;
+        }else{
+            this->tail = this->tail->prev;
+            this->tail->next = nullptr;
+        }
+        delete pc;
+    }
+}
+
+/*bool Player::wins(int player_nr) const {
     bool win = true;
     if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
         win = false;
@@ -936,7 +969,7 @@ bool Player::loses(int player_nr) const {
 
 bool Player::loses() const {
 
-}//TODO:COMPLEATARE
+}*///TODO:COMPLEATARE
 
 int Player::recurrence() const {
     List pc = this->pimpl->tail;
