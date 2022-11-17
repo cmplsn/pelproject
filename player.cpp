@@ -844,6 +844,10 @@ bool Player::Impl::valid_board(Player::piece y[8][8]) {
 } //OK
 
 bool Player::valid_move() const {
+
+}
+
+/*bool Player::valid_move() const {
     Player::piece last [8][8];
     Player::piece previous[8][8];
     for(int i = 0; i < 8; i++){
@@ -890,7 +894,7 @@ bool Player::valid_move() const {
     }
     return true;
 
-}//todo: COMPLETARE, DEVE RICONOSCERE TUTTE LE MOSSE
+}*///todo: COMPLETARE, DEVE RICONOSCERE TUTTE LE MOSSE
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
