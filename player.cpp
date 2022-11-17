@@ -850,17 +850,116 @@ bool Player::valid_move() const {
     if(this->pimpl->tail->prev == nullptr){//una sola board in history
         throw player_exception{player_exception::index_out_of_bounds,"no moves completed, only one board in history"};
     }else{
+        for (int r = 0; r<8; r++){
+            for(int c = 0; c<8; c++){
+                prev_b[r][c] = pimpl->tail->prev->board[r][c];
+                last_b[r][c] = pimpl->tail->board[r][c]; //salvo perchè rimuovo dalla history per rieseguire mossa su prev
+            }
+        }
         if(pimpl->matching_boards(pimpl->tail->board,pimpl->tail->prev->board)){//ultime due board uguali. mossa non valida
             return false;
         }else{
-            for (int r = 0; r<8; r++){
-                for(int c = 0; c<8; c++){
-                    prev_b[r][c] = pimpl->tail->prev->board[r][c];
-                    last_b[r][c] = pimpl->tail->board[r][c];
+
+            this->pimpl->pop();
+            bool moved =false;
+
+            if(pimpl->player_nr ==1){
+                int i = 0;
+                while(i <8 && !moved){
+                    int j= 0;
+                    while(j<8 && !moved){
+                        if(pimpl->tail->board[i][j]==x){
+                            if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
+                                moved = true;
+                            }else{
+                                if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
+                                    moved = true;
+                                }
+                            }
+                        }else{
+                            if(pimpl->tail->board[i][j] == X){
+                                if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j+1)){
+                                    moved=true;
+                                }else{
+                                    if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j-1 )){
+                                        moved =true;
+                                    }else{
+                                        if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j,i+1,j+1)){
+                                            moved = true;
+                                        }else{
+                                            if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i+1,j-1) ){
+                                                moved = true;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            }//todo: DEVO COMPLETARE CON  EXCEPTION SE PEDINA NON è NE X ne x??
+                        }
+                        j++;
+                    }
+                    i++;
+                }
+            }else{
+                if(pimpl->player_nr ==2){
+                    int i = 0;
+                    while(i<8 && !moved){
+                        int j=0;
+                        while(j<8 && !moved){
+                            if(pimpl->tail->board[i][j]==o){
+                                if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
+                                    moved = true;
+                                }else{
+                                    if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j-1)){
+                                        moved = true;
+                                    }
+                                }
+
+                            }else{
+                                if(pimpl->tail->board[i][j] == O){
+                                    if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j+1)){
+                                        moved=true;
+                                    }else{
+                                        if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j-1)){
+                                            moved = true;
+                                        }else{
+                                            if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
+                                                moved = true;
+                                            }else{
+                                                if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j-1)){
+                                                    moved = true;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            j++;
+                        }
+                        i++;
+                    }
                 }
             }
+            if(!moved){
+                Player::piece same_b[8][8];
+                for(int m = 0; m<8; m++){
+                    for(int n = 0; n<8; n++){
+                        same_b[m][n]=pimpl->tail->board[m][n];
+                    }
+                }
+                this->pimpl->append(same_b);
+            }
         }
-
+        bool matching = this->pimpl->matching_boards(pimpl->tail->board, last_b);
+        if(matching){//se last_b e pimpl->tail matchano la mossa è valida
+            return true;
+        }else{ //se la tail != da last_b rimuovo tail dell'ultima mossa e rimetto last_b
+            this->pimpl->pop();
+            this->pimpl->append(last_b);
+            return false;
+        }
     }
 }
 
@@ -928,7 +1027,6 @@ void Player::pop() {
         delete pc;
 
     }
-
 }   //FATTO
 
 void Player::Impl::pop() {//todo: CONTROLLARE SE E' GIUSTA
