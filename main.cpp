@@ -1,5 +1,6 @@
 #include <iostream>
 #include "player.hpp"
+using namespace std;
 
 int main() {
     Player a(1);
@@ -7,9 +8,11 @@ int main() {
     Player c(a);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    a.load_board("../x_mangia.txt");
+    //a.load_board("../x_mangia.txt");
     a.move();
-    a.store_board("../boards/ha_mangiato.txt");
+    a.store_board("../boards/es1.txt");
+    cout<<boolalpha<<a.valid_move()<<endl;
+    //a.store_board("../boards/ha_mangiato.txt");
     /*a.store_board("../boards/es_1.txt");
     a.move();
     a.move();

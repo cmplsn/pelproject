@@ -301,7 +301,7 @@ void Player::load_board(const string &filename) {
 //todo: CHECK ALL ERROR CASE eof, good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
-    if(this->tail->prev !=nullptr){
+   if(this->tail->prev !=nullptr){
         int count = 0;
         for(int i = 0; i < 8; i++){
             for(int j = 0; j <8; j++){
@@ -320,7 +320,8 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
         }
     }else{
 
-    }
+    }*/
+
 
 }
 //toDO:COMPLETARE
@@ -961,7 +962,7 @@ bool Player::valid_move() const {
             return false;
         }
     }
-}
+} //TODO:TEST
 
 /*bool Player::valid_move() const {
     Player::piece last [8][8];
