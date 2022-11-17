@@ -320,7 +320,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
         }
     }else{
 
-    }*/
+    }
 
 
 }
