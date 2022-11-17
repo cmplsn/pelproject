@@ -301,14 +301,16 @@ void Player::load_board(const string &filename) {
 //todo: CHECK ALL ERROR CASE eof, good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
-   if(this->tail->prev !=nullptr){
+    int count = 0;
+
+   /*if(this->tail->prev !=nullptr){
         int count = 0;
         for(int i = 0; i < 8; i++){
             for(int j = 0; j <8; j++){
                 if(last[i][j]==previous[i][j]){
-                    /*cout<<"riga:"<<i<<" colonna:"<<j<<endl;
+                    cout<<"riga:"<<i<<" colonna:"<<j<<endl;
                      *cout<<"previousboard:"<<enum_to_char(previous[i][j])<<endl;
-                     *cout<<"lastcell:"<<enum_to_char(last[i][j])<<endl;*/
+                     *cout<<"lastcell:"<<enum_to_char(last[i][j])<<endl;
                     count ++;
                 }
             }
@@ -320,7 +322,7 @@ bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previ
         }
     }else{
 
-    }
+    }*/
 
 
 }
@@ -962,7 +964,8 @@ bool Player::valid_move() const {
             return false;
         }
     }
-} //TODO:TEST
+}   //TODO: se la mossa appena fatta e la mossa fatta da giocatore non matchano, provare tutte le altre possibili mosse.
+    //TODO: solo se nessuna mossa disponibile -> false
 
 /*bool Player::valid_move() const {
     Player::piece last [8][8];
