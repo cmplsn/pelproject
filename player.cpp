@@ -964,57 +964,9 @@ bool Player::valid_move() const {
             return false;
         }
     }
-}   //TODO: se la mossa appena fatta e la mossa fatta da giocatore non matchano, provare tutte le altre possibili mosse.
+}
+    //TODO: se la mossa appena fatta e la mossa fatta da giocatore non matchano, provare tutte le altre possibili mosse.
     //TODO: solo se nessuna mossa disponibile -> false
-
-/*bool Player::valid_move() const {
-    Player::piece last [8][8];
-    Player::piece previous[8][8];
-    for(int i = 0; i < 8; i++){
-        for(int j = 0; j<8; j++){
-            last[i][j]=pimpl->tail->board[i][j];
-            previous[i][j]=pimpl->tail->prev->board[i][j];
-        }
-    }
-    if(this->pimpl->tail->prev == nullptr){//una sola board -> nessuna mossa effettuata
-        throw player_exception{player_exception::index_out_of_bounds, "no move possible"};
-    }else {
-        if (pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)) {//stessa board ripetuta == nessuna mossa effettuata
-            return false;
-        }else{
-            if(!pimpl->valid_board(pimpl->tail->board)){//numero pezzi, spazi bianchi ecc
-                return false;
-            }else{
-                for(int i = 0; i < 8 ; i++){
-                    for(int j = 0; j < 8; j++){
-                        if(i== 7 && previous[i][j] == piece::x && last[i][j] !=piece::X){
-                            return false;
-                        }else{
-                            if(i == 0 && previous[i][j]==piece::o && last[i][j]!=piece::O){
-                                return false;
-                            }
-                        }
-                        if(previous[i][j] == piece::x ){
-                            if(previous[i+1][j+1] == piece::o && previous[i+2][j+2]==piece::e){
-                                if(!(last[i][j]==piece::e && last[i+1][j+1]==piece::e && last[i+2][j+2]==piece::x) ){
-                                    return false;
-                                }
-                            }
-
-                        }else{
-                            if(last[i][j] == piece::o ){
-
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-    return true;
-
-}*///todo: COMPLETARE, DEVE RICONOSCERE TUTTE LE MOSSE
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
