@@ -985,7 +985,7 @@ void Player::pop() {
     }
 }   //FATTO
 
-void Player::Impl::pop() {//todo: CONTROLLARE SE E' GIUSTA
+void Player::Impl::pop() {
     if(this->history ==nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "can't pop from empty history"};
     }else{
@@ -999,7 +999,7 @@ void Player::Impl::pop() {//todo: CONTROLLARE SE E' GIUSTA
         }
         delete pc;
     }
-}
+}//todo: CONTROLLARE SE E' GIUSTA
 
 /*bool Player::wins(int player_nr) const {
     bool win = true;
@@ -1023,7 +1023,7 @@ bool Player::loses(int player_nr) const {
 
 bool Player::loses() const {
 
-}*///TODO:COMPLEATARE
+}*///TODO:COMPLETARE WINS LOSES
 
 int Player::recurrence() const {
     List pc = this->pimpl->tail;
