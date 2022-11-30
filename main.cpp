@@ -23,5 +23,8 @@ int main() {
     b.store_board("../boards/b2moved.txt");
     cout<<a.recurrence()<<endl;
     cout<<b.recurrence()<<endl;
+    a.load_board("../boards/a_wins.txt");
+    cout<<"a vince: "<<boolalpha<<a.wins()<<endl;
+    cout<<"b vince: "<<boolalpha <<b.wins()<<endl;
     return 0;
 }

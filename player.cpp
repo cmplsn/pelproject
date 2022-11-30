@@ -985,7 +985,7 @@ bool Player::valid_move() const {
     }
 
 }
-    //todo: controllare indici per pedine/dama O perchè muove per prima la seconda???
+    //todo:TEST
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
@@ -1018,19 +1018,83 @@ void Player::Impl::pop() {
         }
         delete pc;
     }
-}//todo: CONTROLLARE SE E' GIUSTA
+}//OK
 
-/*bool Player::wins(int player_nr) const {
-    bool win = true;
-    if(this->pimpl->matching_boards(this->pimpl->tail->board, this->pimpl->tail->prev->board)){
-        win = false;
+bool Player::wins(int player_nr) const {
+    if(pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "empty history"};
+    }else{
+        int count_x = 0;
+        int count_o = 0;
+        for(int i = 0; i <8; i++){
+            for(int j = 0; j <8; j++){
+                if(this->pimpl->tail->board[i][j]==x ||this->pimpl->tail->board[i][j]==X){
+                    count_x++;
+                }else{
+                    if(this->pimpl->tail->board[i][j]==o ||this->pimpl->tail->board[i][j]== O){
+                        count_o++;
+                    }
+                }
+            }
+        }
+        switch (pimpl->player_nr) {
+            default:
+                throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
+                break;
+            case 1:
+                if(count_o == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+                break;
+            case 2:
+                if(count_x == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+        }
     }
-    return win;
-} //todo:COMPLETARE
+} //OK
 
 bool Player::wins() const {
-
-}//TODO:COMPLETARE
+    if(pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "empty history"};
+    }else{
+        int count_x = 0;
+        int count_o = 0;
+        for(int i = 0; i <8; i++){
+            for(int j = 0; j <8; j++){
+                if(this->pimpl->tail->board[i][j]==x ||this->pimpl->tail->board[i][j]==X){
+                    count_x++;
+                }else{
+                    if(this->pimpl->tail->board[i][j]==o ||this->pimpl->tail->board[i][j]== O){
+                        count_o++;
+                    }
+                }
+            }
+        }
+        switch (pimpl->player_nr) {
+            default:
+                throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
+                break;
+            case 1:
+                if(count_o == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+                break;
+            case 2:
+                if(count_x == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+        }
+    }
+}//OK
 
 bool Player::loses(int player_nr) const {
     if(this->pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)){
@@ -1042,7 +1106,7 @@ bool Player::loses(int player_nr) const {
 
 bool Player::loses() const {
 
-}*///TODO:COMPLETARE WINS LOSES
+}//TODO:COMPLETARE WINS LOSES
 
 int Player::recurrence() const {
     List pc = this->pimpl->tail;
