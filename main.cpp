@@ -8,28 +8,20 @@ int main() {
     Player c(a);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    a.load_board("../boards/board_1.txt");
-    //a.load_board("../boards/es1.txt");
-    //a.load_board("../x_mangia.txt");
+    b.load_board("../boards/es.txt");
+    a.move();
+    a.store_board("../boards/amoved.txt");
+    b.load_board("../boards/amoved.txt");
+    b.move();
+    b.store_board("../boards/bmoved.txt");
+    a.load_board("../boards/bmoved.txt");
     cout<<boolalpha<<a.valid_move()<<endl;
-
-
-    //a.move();
-
-    //cout<<boolalpha<<a.valid_move()<<endl;
-    //a.store_board("../boards/ha_mangiato.txt");
-    /*a.store_board("../boards/es_1.txt");
     a.move();
-    a.move();
-    a.move();
-    a.move();
-    a.move();
-    a.store_board("../boards/board_5.txt",0);
-    a.store_board("../boards/board_4.txt",1);
-    a.store_board("../boards/board_3.txt",2);
-    a.store_board("../boards/board_2.txt",3);
-    a.store_board("../boards/board_1.txt",4);
-    cout<<a(1,0,4)<<endl;*/
-    /*cout<<a.recurrence()<<endl;*/
+    a.store_board("../boards/a2moved.txt");
+    cout<<boolalpha<<b.valid_move()<<endl;
+    b.move();
+    b.store_board("../boards/b2moved.txt");
+    cout<<a.recurrence()<<endl;
+    cout<<b.recurrence()<<endl;
     return 0;
 }

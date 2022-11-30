@@ -526,7 +526,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                             }
                         }
                     }
-                    if(j>=6 && field[in][jn]==e){//todo: muove GIU DX
+                    if(j<=6 && field[in][jn]==e){//todo: muove GIU DX
                         new_field[i][j]=e;
                         if(in==0){
                             new_field[in][jn]=O;
@@ -985,8 +985,7 @@ bool Player::valid_move() const {
     }
 
 }
-    //TODO: se la mossa appena fatta e la mossa fatta da giocatore non matchano, provare tutte le altre possibili mosse.
-    //TODO: solo se nessuna mossa disponibile -> false
+    //todo: controllare indici per pedine/dama O perchè muove per prima la seconda???
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
