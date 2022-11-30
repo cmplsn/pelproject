@@ -5,10 +5,11 @@ using namespace std;
 int main() {
     Player a(1);
     Player b(2);
-    Player c(a);
+    //Player c(a);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
-    b.load_board("../boards/es.txt");
+    cout<<a.recurrence();
+    /*b.load_board("../boards/es.txt");
     a.move();
     a.store_board("../boards/amoved.txt");
     b.load_board("../boards/amoved.txt");
@@ -22,9 +23,6 @@ int main() {
     b.move();
     b.store_board("../boards/b2moved.txt");
     cout<<a.recurrence()<<endl;
-    cout<<b.recurrence()<<endl;
-    a.load_board("../boards/a_wins.txt");
-    cout<<"a vince: "<<boolalpha<<a.wins()<<endl;
-    cout<<"b vince: "<<boolalpha <<b.wins()<<endl;
+    cout<<b.recurrence()<<endl;*/
     return 0;
 }

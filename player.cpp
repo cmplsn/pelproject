@@ -1097,35 +1097,68 @@ bool Player::wins() const {
 }//OK
 
 bool Player::loses(int player_nr) const {
-    if(this->pimpl->matching_boards(pimpl->tail->board, pimpl->tail->prev->board)){
-        return true;
+    if(pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "empty history"};
     }else{
-        return false;
+        switch (pimpl->player_nr) {
+            default:
+                throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
+                break;
+            case 1:
+                if(!wins(1)){
+                    return true;
+                }else{
+                    return false;
+                }
+                break;
+            case 2:
+                if(!wins(2)){
+                    return true;
+                }else{
+                    return false;
+                }
+
+        }
     }
-}//TODO:COMPLETARE
+}//OK
 
 bool Player::loses() const {
+    if(pimpl->history == nullptr){
+        throw player_exception{player_exception::index_out_of_bounds, "empty history"};
+    }else{
+        switch (pimpl->player_nr) {
+            default:
+                throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
+                break;
+            case 1:
+                if(!wins(1)){
+                    return true;
+                }else{
+                    return false;
+                }
+                break;
+            case 2:
+                if(!wins(2)){
+                    return true;
+                }else{
+                    return false;
+                }
 
-}//TODO:COMPLETARE WINS LOSES
+        }
+    }
+
+}//OK
 
 int Player::recurrence() const {
-    List pc = this->pimpl->tail;
+
 
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "history is empty"};
     }else{
-        int count = 1 ;
-        int correct_char=0;
-        while(pc->prev !=nullptr){
-            for(int i = 0; i < 8; i ++){
-                for (int k = 0; k < 8; k++){
-
-                    if(pc->board[i][k]== pc->prev->board[i][k]){
-                        correct_char++;
-                    }
-                }
-            }
-            if(correct_char==64){
+        List pc = this->pimpl->tail;
+        int count =1;
+        while(pc->prev){
+            if(pimpl->matching_boards(pc->board,pc->prev->board)){
                 count++;
             }
             pc=pc->prev;
@@ -1133,4 +1166,4 @@ int Player::recurrence() const {
         return count;
     }
 
-} //todo:: implementare con matching boards
+} //OK
