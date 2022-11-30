@@ -8,10 +8,15 @@ int main() {
     Player c(a);
     a.init_board("../boards/es.txt");
     a.load_board("../boards/es.txt");
+    a.load_board("../boards/board_1.txt");
+    //a.load_board("../boards/es1.txt");
     //a.load_board("../x_mangia.txt");
-    a.move();
-    a.store_board("../boards/es1.txt");
     cout<<boolalpha<<a.valid_move()<<endl;
+
+
+    //a.move();
+
+    //cout<<boolalpha<<a.valid_move()<<endl;
     //a.store_board("../boards/ha_mangiato.txt");
     /*a.store_board("../boards/es_1.txt");
     a.move();
