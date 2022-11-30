@@ -258,8 +258,7 @@ void Player::store_board(const string &filename, int history_offset) const {
             }
         }
     }
-} //da history a file.txt
-//todo:CHECK ALL ERROR CASE eof,good ecc
+} //da history a file.txt //todo:CHECK ALL ERROR CASE eof,good ecc
 
 void Player::load_board(const string &filename) {
     string name = filename;
@@ -297,8 +296,7 @@ void Player::load_board(const string &filename) {
         throw player_exception{player_exception::missing_file, "invalid board format"};
     }
 
-}//da file.txt a history
-//todo: CHECK ALL ERROR CASE eof, good ecc
+}//da file.txt a history//todo: CHECK ALL ERROR CASE eof, good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
     if(this->tail->prev == nullptr){
@@ -984,8 +982,7 @@ bool Player::valid_move() const {
         return false;
     }
 
-}
-    //todo:TEST
+} //todo:TEST
 
 void Player::pop() {
     if(this->pimpl->history == nullptr){
@@ -1002,7 +999,7 @@ void Player::pop() {
         delete pc;
 
     }
-}   //FATTO
+}  //OK
 
 void Player::Impl::pop() {
     if(this->history ==nullptr){
@@ -1150,8 +1147,6 @@ bool Player::loses() const {
 }//OK
 
 int Player::recurrence() const {
-
-
     if(this->pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "history is empty"};
     }else{
