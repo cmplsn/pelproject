@@ -697,10 +697,10 @@ void Player::move(){
 
     } else{
         if(pimpl->player_nr ==1){
-            int i = 0;
-            while(i <8 && !moved){
-                int j= 0;
-                while(j<8 && !moved){
+            int i = 7;
+            while(i >= 0 && !moved){
+                int j=7;
+                while(j>=0 && !moved){
                     if(pimpl->tail->board[i][j]==x){
                         if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
                             moved = true;
@@ -730,16 +730,16 @@ void Player::move(){
 
                         }//todo: DEVO COMPLETARE CON  EXCEPTION SE PEDINA NON è NE X ne x??
                     }
-                 j++;
+                 j--;
                 }
-                i++;
+                i--;
             }
         }else{
             if(pimpl->player_nr ==2){
                 int i = 0;
                 while(i<8 && !moved){
-                    int j=0;
-                    while(j<8 && !moved){
+                    int j=7;
+                    while(j>=0 && !moved){
                         if(pimpl->tail->board[i][j]==o){
                             if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
                                 moved = true;
@@ -769,7 +769,7 @@ void Player::move(){
 
                             }
                         }
-                        j++;
+                        j--;
                     }
                     i++;
                 }
@@ -1102,14 +1102,14 @@ bool Player::loses(int player_nr) const {
                 throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
                 break;
             case 1:
-                if(!wins(1)){
+                if(wins(2)){
                     return true;
                 }else{
                     return false;
                 }
                 break;
             case 2:
-                if(!wins(2)){
+                if(wins(1)){
                     return true;
                 }else{
                     return false;
@@ -1128,14 +1128,14 @@ bool Player::loses() const {
                 throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
                 break;
             case 1:
-                if(!wins(1)){
+                if(wins(2)){
                     return true;
                 }else{
                     return false;
                 }
                 break;
             case 2:
-                if(!wins(2)){
+                if(wins(1)){
                     return true;
                 }else{
                     return false;
