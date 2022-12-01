@@ -296,7 +296,7 @@ void Player::load_board(const string &filename) {
         throw player_exception{player_exception::missing_file, "invalid board format"};
     }
 
-}//da file.txt a history//todo: CHECK ALL ERROR CASE eof, good ecc
+}//da file.txt a history//todo: FORSE OK. CHECK ALL ERROR CASE eof, good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
     if(this->tail->prev == nullptr){
