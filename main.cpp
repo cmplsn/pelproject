@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include "player.hpp"
 using namespace std;
 
@@ -10,8 +10,8 @@ int main() {
     a.load_board("../boards/init_special.txt");
     int count = 0;
     return 0;
-}
-/*#include "player.hpp"
+}*/
+#include "player.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -73,4 +73,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-}*/
+}
