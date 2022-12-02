@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include "player.hpp"
 using namespace std;
 
@@ -7,11 +7,42 @@ int main() {
     Player b(2);
     //Player c(a);
     //a.init_board("../boards/es.txt");
-    a.load_board("../boards/init_special.txt");
-    int count = 0;
+    int round = 0;
+    bool game = true;
+    string board_name = "../boards/mossa_" + std::to_string(round) + ".txt";
+    while (game) {
+        cout<<"mossa "<<round<<endl;
+        if (round % 2 == 0) {
+            a.load_board(board_name);
+            if (round >= 2 && !a.valid_move())
+                game = false;
+            a.move();
+            board_name = "../boards/mossa_" + std::to_string(round + 1) + ".txt";
+            a.store_board(board_name);
+            if (a.wins())
+                cout << "win" << endl;
+            else if (a.loses())
+                cout << "lose" << endl;
+        }
+        else {
+            b.load_board(board_name);
+            if (round >= 2 && !b.valid_move())
+                game = false;
+            b.move();
+            board_name = "../boards/mossa_" + std::to_string(round + 1) + ".txt";
+            b.store_board(board_name);
+            if (b.wins())
+                cout << "win" << endl;
+            else if (b.loses())//Todo: DEBUGGARE GUARDANDO SE FUNZIONA/SISTEMARE LOSES
+                cout << "lose" << endl;
+        }
+        round++;
+    }
+
+
     return 0;
-}*/
-#include "player.hpp"
+}
+/*#include "player.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -79,4 +110,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-}
+}*/
