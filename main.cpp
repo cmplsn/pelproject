@@ -23,6 +23,8 @@ int main(){
     int player = 1;
     Player p1(player + 1);
     Player p2(player);
+
+
     int round = 0;
     string board_name =  "../Boards/board_" + std::to_string(round) + ".txt";
     p1.init_board(board_name);
@@ -65,11 +67,15 @@ int main(){
     cout << "recurrance 1 last board: " << p1.recurrence() << endl;
     cout << "piece at [1][2] of the 3 board: " << p1.operator()(1, 2, 3) << endl;
     cout << "piece at [1][2] of the 3 board: " << p2.operator()(1, 2, 3) << endl;
-    Player p3 = p1;
+
+    Player p3 = p1; //USA IL COPY CONSTRUCTOR
+
     cout << "piece at [3][4] of the 5 board: " << p1.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p3.operator()(3, 4, 5) << endl;
+
     Player p4;
-    p4.operator=(p2);
+    p4.operator=(p2);   //usa Player::operator=()
+
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
