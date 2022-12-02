@@ -702,7 +702,7 @@ void Player::move(){
                 int j=0;
                 while(j<8 && !moved){
                     if(pimpl->tail->board[i][j]==x){
-                        if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){//in possible move controllare solo se mangia per j+2
+                        if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){
                             moved = true;
                         }else{
                             if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j - 1)){
@@ -728,7 +728,7 @@ void Player::move(){
                             }
 
 
-                        }//todo: DEVO COMPLETARE CON  EXCEPTION SE PEDINA NON è NE X ne x??
+                        }
                     }
                  j++;
                 }
