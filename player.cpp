@@ -50,8 +50,8 @@ void Player::Impl::destroy(List& x) {
 void Player::Impl::append(Player::piece y[8][8]) {
     if(history == nullptr){
         history = new Cell;
-        history->prev = nullptr;
-        history->next = nullptr;
+        //history->prev = nullptr;
+        //history->next = nullptr;
         for(int i = 0;i<8;i++){
             for(int k= 0; k < 8; k++) {
                 history->board[i][k] = y[i][k];
@@ -112,7 +112,7 @@ Player& Player::operator=(const Player &x) {
 
 return *this;
 
-} //TODO: TEST
+} //OPERATORE ASSEGNAMENTO OK
 
 char enum_to_char(Player::piece a){
     switch (a) {
@@ -1034,7 +1034,7 @@ bool Player::wins(int player_nr) const {
                 }
             }
         }
-        switch (pimpl->player_nr) {
+        switch (player_nr) {
             default:
                 throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
                 break;
@@ -1051,6 +1051,7 @@ bool Player::wins(int player_nr) const {
                 }else{
                     return false;
                 }
+                break;
         }
     }
 } //OK
@@ -1089,6 +1090,7 @@ bool Player::wins() const {
                 }else{
                     return false;
                 }
+                break;
         }
     }
 }//OK
@@ -1097,7 +1099,7 @@ bool Player::loses(int player_nr) const {
     if(pimpl->history == nullptr){
         throw player_exception{player_exception::index_out_of_bounds, "empty history"};
     }else{
-        switch (pimpl->player_nr) {
+        switch (player_nr) {
             default:
                 throw player_exception{player_exception::index_out_of_bounds, "invalid player_nr"};
                 break;
@@ -1114,6 +1116,7 @@ bool Player::loses(int player_nr) const {
                 }else{
                     return false;
                 }
+                break;
 
         }
     }
@@ -1140,7 +1143,7 @@ bool Player::loses() const {
                 }else{
                     return false;
                 }
-
+                break;
         }
     }
 

@@ -1,28 +1,33 @@
-#include <iostream>
+/*#include <iostream>
 #include "player.hpp"
 using namespace std;
 
 int main() {
     Player a(1);
     Player b(2);
-    //Player c(a);
+    Player c(b);
+    Player d = c;
+    Player e;
+    e =d;
     //a.init_board("../boards/es.txt");
     int round = 0;
     bool game = true;
     string board_name = "../boards/mossa_" + std::to_string(round) + ".txt";
+    a.init_board(board_name);
     while (game) {
         cout<<"mossa "<<round<<endl;
         if (round % 2 == 0) {
             a.load_board(board_name);
-            if (round >= 2 && !a.valid_move())
+            if (round >= 2 && !a.valid_move()) {
                 game = false;
+            }
             a.move();
             board_name = "../boards/mossa_" + std::to_string(round + 1) + ".txt";
             a.store_board(board_name);
             if (a.wins())
-                cout << "win" << endl;
+                cout << "a won" << endl;
             else if (a.loses())
-                cout << "lose" << endl;
+                cout << "a lost" << endl;
         }
         else {
             b.load_board(board_name);
@@ -32,17 +37,19 @@ int main() {
             board_name = "../boards/mossa_" + std::to_string(round + 1) + ".txt";
             b.store_board(board_name);
             if (b.wins())
-                cout << "win" << endl;
+                cout << "b won" << endl;
             else if (b.loses())//Todo: DEBUGGARE GUARDANDO SE FUNZIONA/SISTEMARE LOSES
-                cout << "lose" << endl;
+                cout << "b lost" << endl;
         }
         round++;
     }
+    cout<<"ultima board di a: "<<a.recurrence()<<endl;
+    a.loses();
 
-
+cout<<"fine progetto aggiornato AGAIN"<<endl;
     return 0;
-}
-/*#include "player.hpp"
+}*/
+#include "player.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -62,9 +69,9 @@ int main(){
     bool game = true;
     while (game) {
         cout<<"partita "<<round<<endl;
-        if (round % 2) {
+        if (round % 2 ==0) {
             p2.load_board(board_name);
-            if (round > 2 && !p2.valid_move())
+            if (round >= 2 && !p2.valid_move())
                 game = false;
             p2.move();
             board_name = "../Boards/board_" + std::to_string(round + 1) + ".txt";
@@ -76,7 +83,7 @@ int main(){
         }
         else {
             p1.load_board(board_name);
-            if (round > 2 && !p1.valid_move())
+            if (round >= 2 && !p1.valid_move())
                 game = false;
             p1.move();
             board_name = "../Boards/board_" + std::to_string(round + 1) + ".txt";
@@ -110,4 +117,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-}*/
+}
