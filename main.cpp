@@ -1,8 +1,25 @@
-/*#include <iostream>
+#include <iostream>
 #include "player.hpp"
 using namespace std;
+int main(){
+    int round=0;
+    Player p1(1);
+    p1.init_board("../boards/nuova.txt");
+    p1.load_board("../boards/nuova.txt");
+    p1.move();
+    p1.store_board("../boards/nuova_"+std::to_string(round)+".txt");
+    round++;
+    p1.move();
+    p1.store_board("../boards/nuova_"+std::to_string(round)+".txt");
+    round++;
+    p1.move();
+    p1.store_board("../boards/nuova_"+std::to_string(round)+".txt");
+    round++;
+    p1.store_board("../boards/prova_store.txt",2);
 
-int main() {
+    return 0;
+}
+/*int main() {
     Player a(1);
     Player b(2);
     Player c(b);
@@ -48,7 +65,7 @@ int main() {
 
 cout<<"fine progetto aggiornato AGAIN"<<endl;
     return 0;
-}*/
+}
 #include "player.hpp"
 #include <iostream>
 #include <fstream>
@@ -117,4 +134,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-}
+}*/
