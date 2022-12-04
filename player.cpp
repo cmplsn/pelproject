@@ -232,10 +232,13 @@ void Player::init_board(const string &filename) const {
 void Player::store_board(const string &filename, int history_offset) const {
     ofstream myfile(filename);
     int count =0;
-    if(!myfile){
-        throw player_exception{player_exception::missing_file, "file no found"};
+    if(!myfile.good()){
+        throw player_exception{player_exception::missing_file, "file not found"};
     }else{
         List pc = pimpl->tail;
+        if(pc == nullptr){
+            throw player_exception{player_exception::index_out_of_bounds, "empty history, nothing to save in txt"};
+        }
         while(pc->prev && count != history_offset){
             pc=pc->prev;
             count++;
@@ -258,6 +261,10 @@ void Player::store_board(const string &filename, int history_offset) const {
             }
         }
     }
+    myfile.close();
+    if(myfile.fail()){
+        throw player_exception{player_exception::missing_file, "something went wrong during copy"};
+    }
 } //da history a file.txt //todo:CHECK ALL ERROR CASE eof,good ecc
 
 void Player::load_board(const string &filename) {
@@ -265,7 +272,7 @@ void Player::load_board(const string &filename) {
     ifstream myfile(filename);
     Player::piece board[8][8];
 
-    if(!myfile){
+    if(!myfile.good()){
         throw player_exception{player_exception::missing_file, "file does not exist"};
     }else if (name.substr(name.find_last_of('.')+1)!= "txt") {
         throw player_exception{player_exception::missing_file, "wrong file format"};
@@ -293,28 +300,24 @@ void Player::load_board(const string &filename) {
     if(pimpl->valid_board(board)) {
         this->pimpl->append(board);
     }else{
-        throw player_exception{player_exception::missing_file, "invalid board format"};
+        throw player_exception{player_exception::invalid_board, "invalid board format"};
     }
 
 }//da file.txt a history//todo: FORSE OK. CHECK ALL ERROR CASE eof, good ecc
 
 bool Player::Impl::matching_boards(Player::piece last[8][8], Player::piece previous[8][8]) {
-    if(this->tail->prev == nullptr){
-        throw player_exception{player_exception::index_out_of_bounds, "only one board in history"};
-    }else{
-        int count = 0;
-        for(int i = 0; i < 8; i++){
-            for(int j=0; j<8; j++){
-                if(last[i][j]==previous[i][j]){
-                    count ++;
-                }
+    int count = 0;
+    for(int i = 0; i < 8; i++){
+        for(int j=0; j<8; j++){
+            if(last[i][j]==previous[i][j]){
+                count ++;
             }
         }
-        if(count == 64){
-            return true;
-        }else{
-            return false;
-        }
+    }
+    if(count == 64){
+        return true;
+    }else{
+        return false;
     }
 }//OK
 
@@ -699,8 +702,8 @@ void Player::move(){
         if(pimpl->player_nr ==1){
             int i = 7;
             while(i >= 0 && !moved){
-                int j=0;
-                while(j<8 && !moved){
+                int j=7;
+                while(j>=0 && !moved){
                     if(pimpl->tail->board[i][j]==x){
                         if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board, i, j, i + 1, j + 1)){
                             moved = true;
@@ -730,7 +733,7 @@ void Player::move(){
 
                         }
                     }
-                 j++;
+                 j--;
                 }
                 i--;
             }
