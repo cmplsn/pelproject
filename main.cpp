@@ -1,7 +1,49 @@
-/*#include <iostream>
+#include <iostream>
 #include "player.hpp"
 using namespace std;
+
 int main(){
+    Player a(1);
+    Player b(2);
+    int round = 0;
+    string name ="../boards/turno_" + std::to_string(round) +".txt";
+    a.init_board(name);
+    bool game = true;
+    while (game && round<=100){
+        cout<<"turno"<<round<<endl;
+        if(round %2 == 0){
+            a.load_board(name);
+            if(round >=2 && !a.valid_move()){
+                game = false;
+            }
+            a.move();
+            name ="../boards/turno_"+ std::to_string(round+1)+".txt";
+            a.store_board(name);
+            if(a.wins()){
+                cout<<"a vince"<<endl;
+            }else if(a.loses()){
+                cout<<"a perde"<<endl;
+            }
+        }
+        else{
+            b.load_board(name);
+            if(round >=2 && !b.valid_move()){
+                game=false;
+            }
+            b.move();
+            name ="../boards/turno_"+ std::to_string(round+1)+".txt";
+            b.store_board(name);
+            if(b.wins()){
+                cout<< "b vince"<<endl;
+            }else if(b.loses()){
+                cout<<"b perde"<<endl;
+            }
+        }
+        round++;
+    }
+    return 0;
+}
+/*int main(){
     int round=0;
     Player p1(1);
     Player::piece prova [8][8];
@@ -26,14 +68,14 @@ int main(){
     p1.store_board("../boards/prova_store.txt",2);
 
     return 0;
-}
+}*/
+
+
+
 /*int main() {
     Player a(1);
     Player b(2);
-    Player c(b);
-    Player d = c;
-    Player e;
-    e =d;
+
     //a.init_board("../boards/es.txt");
     int round = 0;
     bool game = true;
@@ -74,7 +116,10 @@ int main(){
 cout<<"fine progetto aggiornato AGAIN"<<endl;
     return 0;
 }*/
-#include "player.hpp"
+
+
+
+/*#include "player.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -142,4 +187,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-}
+}*/
