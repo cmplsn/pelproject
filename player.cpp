@@ -5,16 +5,16 @@
 
 struct Cell{
     Player::piece board[8][8];
-    Cell* next;
-    Cell* prev;
+    Cell* next = nullptr;
+    Cell* prev = nullptr;
 }; //struct per History/tail in IMPL
 
 typedef Cell* List;
 
 struct Player::Impl{
     int player_nr;
-    List history;
-    List tail;
+    List history = nullptr;
+    List tail = nullptr;
     void append(Player::piece y[8][8]);
     void destroy (List& x) ;
     List copy(List& dest, List source);
@@ -885,6 +885,39 @@ bool Player::valid_move() const {
                                 }else{
                                     this->pimpl->pop();
                                 }
+                            }
+                            if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j-1 )) {
+                                if (pimpl->matching_boards(pimpl->tail->board, saved_last)) {
+                                    moved = true;
+                                    return true;
+                                } else {
+                                    this->pimpl->pop();
+                                }
+                            }
+                            if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j,i+1,j+1)){
+                                if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                    moved = true;
+                                    return true;
+                                }else{
+                                    this->pimpl->pop();
+                                }
+                            }
+                            if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i+1,j-1)){
+                                if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                    moved = true;
+                                    return true;
+                                }else{
+                                    this->pimpl->pop();
+                                }
+                            }
+
+                            /*if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j+1)){
+                                if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                    moved = true;
+                                    return true;
+                                }else{
+                                    this->pimpl->pop();
+                                }
                             }else{
                                 if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j,i-1,j-1 )){
                                     if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
@@ -912,7 +945,7 @@ bool Player::valid_move() const {
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }else{
                             if(pimpl->tail->board[i][j] == o){ //todo: PEDINA o
                                 if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
@@ -935,6 +968,38 @@ bool Player::valid_move() const {
                             }else{
                                 if(pimpl->tail->board[i][j]== O){//todo: DAMA O
                                     if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j+1)){
+                                        if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                            moved = true;
+                                            return true;
+                                        }else{
+                                            this->pimpl->pop();
+                                        }
+                                    }
+                                    if(i<=6 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j-1)){
+                                        if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                            moved = true;
+                                            return true;
+                                        }else{
+                                            this->pimpl->pop();
+                                        }
+                                    }
+                                    if(i>=1 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j+1)){
+                                        if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                            moved = true;
+                                            return true;
+                                        }else{
+                                            this->pimpl->pop();
+                                        }
+                                    }
+                                    if(i>=1 && j>=1 && pimpl->possible_move(pimpl->tail->board,i,j, i-1,j-1)){
+                                        if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
+                                            moved = true;
+                                            return true;
+                                        }else{
+                                            this->pimpl->pop();
+                                        }
+                                    }
+                                    /*if(i<=6 && j<=6 && pimpl->possible_move(pimpl->tail->board,i,j, i+1,j+1)){
                                         if(pimpl->matching_boards(pimpl->tail->board,saved_last)){
                                             moved = true;
                                             return true;
@@ -968,7 +1033,7 @@ bool Player::valid_move() const {
                                                 }
                                             }
                                         }
-                                    }
+                                    }*/
                                 }
                             }
                         }

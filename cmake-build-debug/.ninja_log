@@ -1,11 +1,17 @@
 # ninja log v5
-3	137	1670236729225503460	CMakeFiles/pelproject.dir/play.cpp.o	bf0ad1c6e5389191
-315	356	1670238624449940842	pelproject	77ab259983cfba
-2	567	1670237179831932590	CMakeFiles/pelproject.dir/player.cpp.o	a6f04f252d873a4a
-2	315	1670238624400103736	CMakeFiles/pelproject.dir/main.cpp.o	10afd33e4b8e3796
-3	137	1670236729225501377	CMakeFiles/pelproject.dir/verify.cpp.o	14abac8bc588a792
-3	37	1670240359994247598	CMakeFiles/pelproject.dir/verify.cpp.o	14abac8bc588a792
 3	38	1670240359994596869	CMakeFiles/pelproject.dir/play.cpp.o	bf0ad1c6e5389191
+290	330	1670240405969094399	pelproject	77ab259983cfba
 2	512	1670240360463625463	CMakeFiles/pelproject.dir/player.cpp.o	a6f04f252d873a4a
 2	290	1670240405922701130	CMakeFiles/pelproject.dir/main.cpp.o	10afd33e4b8e3796
-290	330	1670240405969094399	pelproject	77ab259983cfba
+3	37	1670240359994247598	CMakeFiles/pelproject.dir/verify.cpp.o	14abac8bc588a792
+3	187	1670241618187620325	CMakeFiles/pelproject.dir/play.cpp.o	bf0ad1c6e5389191
+4	188	1670241618187758195	CMakeFiles/pelproject.dir/verify.cpp.o	14abac8bc588a792
+3	1074	1670241619071313385	CMakeFiles/pelproject.dir/player.cpp.o	a6f04f252d873a4a
+2	1124	1670241619118987462	CMakeFiles/pelproject.dir/main.cpp.o	10afd33e4b8e3796
+1124	1228	1670241619233130205	pelproject	77ab259983cfba
+3	603	1670242750562680656	CMakeFiles/pelproject.dir/main.cpp.o	10afd33e4b8e3796
+4	636	1670242750599276719	CMakeFiles/pelproject.dir/player.cpp.o	a6f04f252d873a4a
+636	709	1670242750680191510	pelproject	77ab259983cfba
+2	676	1670244859153931400	CMakeFiles/pelproject.dir/main.cpp.o	10afd33e4b8e3796
+4	699	1670244859178306662	CMakeFiles/pelproject.dir/player.cpp.o	a6f04f252d873a4a
+699	761	1670244859248007718	pelproject	77ab259983cfba

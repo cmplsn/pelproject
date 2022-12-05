@@ -1,6 +1,12 @@
-/*#include <iostream>
+#include <iostream>
 #include "player.hpp"
 using namespace std;
+/*int main(){
+    Player a (2);
+    a.load_board("../boards/board_54.txt");
+    a.load_board("../boards/board_55.txt");
+    a.valid_move();
+}*/
 
 int main(){
     cout<<"mi sono rotto il cazzo"<<endl;
@@ -44,7 +50,7 @@ int main(){
         round++;
     }
     return 0;
-}*/ //todo:MAIN MIO
+} //todo:MAIN MIO
 
 /*int main(){
     int round=0;
@@ -122,7 +128,7 @@ cout<<"fine progetto aggiornato AGAIN"<<endl;
 
 
 
-#include "player.hpp"
+/*#include "player.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -190,4 +196,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-} //todo: MAIN DAVIDE
+}*/ //todo: MAIN DAVIDE
