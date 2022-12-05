@@ -363,7 +363,7 @@ bool Player::Impl::possible_move(Player::piece field[8][8], int i, int j, int in
                     return false;
                 } else {
                     if (jn == j - 1) {
-                        if (i >= 5 && j >= 2) {//todo: x mangia verso alto sx
+                        if (i <= 5 && j >= 2) {//todo: x mangia verso alto sx
                             if (field[in][jn] == o && field[in + 1][jn - 1] == e) {
                                 new_field[i][j] = e;
                                 new_field[in][jn] = e;

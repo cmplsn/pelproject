@@ -1,16 +1,18 @@
-#include <iostream>
+/*#include <iostream>
 #include "player.hpp"
 using namespace std;
 
 int main(){
+    cout<<"mi sono rotto il cazzo"<<endl;
     Player a(1);
     Player b(2);
+
     int round = 0;
     string name ="../boards/turno_" + std::to_string(round) +".txt";
     a.init_board(name);
     bool game = true;
     while (game && round<=100){
-        cout<<"turno"<<round<<endl;
+        cout<<"turno "<<round<<endl;
         if(round %2 == 0){
             a.load_board(name);
             if(round >=2 && !a.valid_move()){
@@ -42,7 +44,8 @@ int main(){
         round++;
     }
     return 0;
-}
+}*/ //todo:MAIN MIO
+
 /*int main(){
     int round=0;
     Player p1(1);
@@ -68,7 +71,7 @@ int main(){
     p1.store_board("../boards/prova_store.txt",2);
 
     return 0;
-}*/
+}*/ //todo:MAIN DUE
 
 
 
@@ -76,7 +79,7 @@ int main(){
     Player a(1);
     Player b(2);
 
-    //a.init_board("../boards/es.txt");
+    a.init_board("../boards/es.txt");
     int round = 0;
     bool game = true;
     string board_name = "../boards/mossa_" + std::to_string(round) + ".txt";
@@ -105,7 +108,7 @@ int main(){
             b.store_board(board_name);
             if (b.wins())
                 cout << "b won" << endl;
-            else if (b.loses())//Todo: DEBUGGARE GUARDANDO SE FUNZIONA/SISTEMARE LOSES
+            else if (b.loses())
                 cout << "b lost" << endl;
         }
         round++;
@@ -115,11 +118,11 @@ int main(){
 
 cout<<"fine progetto aggiornato AGAIN"<<endl;
     return 0;
-}*/
+}*/ //todo: infinite PLAY NON USARE
 
 
 
-/*#include "player.hpp"
+#include "player.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -137,7 +140,7 @@ int main(){
     string board_name =  "../Boards/board_" + std::to_string(round) + ".txt";
     p1.init_board(board_name);
     bool game = true;
-    while (game) {
+    while (game && round <= 100) {
         cout<<"partita "<<round<<endl;
         if (round % 2 ==0) {
             p2.load_board(board_name);
@@ -187,4 +190,4 @@ int main(){
     cout << "piece at [3][4] of the 5 board: " << p2.operator()(3, 4, 5) << endl;
     cout << "piece at [3][4] of the 5 board: " << p4.operator()(3, 4, 5) << endl;
     return 0;
-}*/
+} //todo: MAIN DAVIDE
